@@ -1,5 +1,5 @@
 # Final-Project---PDP
-Final project the for course Principios de Programación, Universidad Técnica Nacional. August 2024.
+Final project for the course Principios de Programación, Universidad Técnica Nacional. August 2024.
 
 Project Members:
 José Raúl Hidalgo Pérez.
