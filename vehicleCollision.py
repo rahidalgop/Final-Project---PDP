@@ -1,7 +1,7 @@
 
 # Libraries
 # ========================================================================================
-import loginFunctions
+import generalFunctions
 from globalVariables import *
 
 # Main body
@@ -9,4 +9,4 @@ from globalVariables import *
 
 if __name__ == "__main__":
 
-    loginFunctions.displayLoginMenu()
+    generalFunctions.displayLoginMenu()
