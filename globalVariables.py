@@ -48,3 +48,26 @@ raul = {
 users = [administrator, isabel, angelica, raul]
 
 currentUser = 0
+
+alajuela = {
+    "name": "Alajuela",
+    "cantons": ["San Carlos", "Zarcero"]
+}
+
+heredia = {
+    "name": "Heredia",
+    "cantons": ["Barva", "Belén"]
+}
+
+sanJose = {
+    "name": "San José",
+    "cantons": ["Tibás", "Moravia"]
+}
+
+puntarenas = {
+    "name": "Puntarenas",
+    "cantons": ["Esparza", "Buenos Aires"]
+}
+
+
+provinces = [alajuela,heredia,sanJose,puntarenas]
