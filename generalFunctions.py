@@ -56,7 +56,7 @@ def validateUser():
                 idIdentified = True
                 userPassword = input("Introduce the password: ")
                 if users[i]["password"] == userPassword:
-                    print(f"Welcome {users[i]["name"]}.\nYour rol in the system is: {users[i]["profile"]}.")
+                    print(f"Welcome {users[i]['name']}.\nYour rol in the system is: {users[i]['profile']}.")
                     currentUser = id
                     print(f"Current user's ID is {currentUser}.")
                     menuProfile()
@@ -77,11 +77,16 @@ def menuProfile():
                 listIndex = i
 
     if users[listIndex]["profile"] == "administrator":
-        menuAdmin()
+        adminFunctions.menuAdmin()
     elif users[listIndex]["profile"] == "citizen":
-        menuCitizen()
+        pass
     elif users[listIndex]["profile"] == "police":
-        menuPolice()
+        pass
     elif users[listIndex]["profile"] == "judge":
-        menuJudge()
+        pass
 
+# Function that closes user session
+
+def closeSession():
+    global currentUser
+    currentUser = 0
