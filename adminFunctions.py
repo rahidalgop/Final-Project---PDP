@@ -20,7 +20,7 @@ def menuAdmin():
 
         option=int(input("Introduce a number: "))
         if option==1:
-            pass
+            createNewUser()
         elif option==2:
             crudProvince()
         elif option==3:
