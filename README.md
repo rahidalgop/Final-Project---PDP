@@ -6,7 +6,11 @@ José Raúl Hidalgo Pérez.
 Angélica Varela Vargas.
 Isabel María Martínez Vindas.
 
-In order to login as the administrator within the system, use the following credentials.
+IMPORTANT:
+Run the file vehicleCollision.py to execute the program.
+In order to login as the administrator within the system, use the following credentials:
 
 ID: 000000000.
 Password: 000.
+
+
