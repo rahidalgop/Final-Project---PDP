@@ -284,12 +284,14 @@ def crudCanton():
     
     
         elif option == 2:
-            print("This is the current list of the cantons.\n")
+            print("\nThis is the current list of the cantons.\n")
+            print("--------------------------------------------------------")
             for i in range(0,len(provinces)):
-                print(f"{provinces[i]["name"]}:\n")
+                print(f"Cantons in {bcolors.BOLD}{provinces[i]["name"]} province:{bcolors.ENDC}")
+                print("--------------------------------------------------------")
                 for x in range(0,len(provinces[i]["cantons"])):
                     print(provinces[i]["cantons"][x])
-                print("\n--------------------------------------------------------\n")
+                print("--------------------------------------------------------")
     
         elif option == 3:
             print("This is the current list of the cantons.\n")
