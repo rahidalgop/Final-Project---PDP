@@ -1,20 +1,27 @@
 
 # Libraries
 # ========================================================================================
+
 import vehicleCollision
 import adminFunctions
 from globalVariables import *
 from datetime import datetime
+from getpass import getpass
+
+# Functions
+# ========================================================================================
 
 # Function that displays the login menu
 
-def displayLoginMenu ():
+def loginMenu ():
+    global currentUser
+    currentUser = 1
     while True:
         print("\n========================================================")
-        print("VEHICLE COLLISION MANAGEMENT PROGRAM")
+        print(f"{bcolors.BOLD}VEHICLE COLLISION MANAGEMENT PROGRAM{bcolors.ENDC}")
         print("========================================================\n")
-        print("1. Login.")
-        print("2. Exit program.\n")
+        print(f"{bcolors.OKCYAN}1. Login.")
+        print(f"2. Exit program.\n{bcolors.ENDC}")
         print("========================================================\n")
         loginMenuOption = input("Introduce a number: ")
 
@@ -23,7 +30,7 @@ def displayLoginMenu ():
         if loginMenuOption == 1:
             validateUser()
         elif loginMenuOption == 2:
-            print("See you later!")
+            print(f"\n{bcolors.OKCYAN}See you later!{bcolors.ENDC}\n")
             break
 
 # Function that validates that user's input in the menu is valid
@@ -35,10 +42,10 @@ def validateOption(option):
             if option == 1 or option == 2 or option == 3:
                 return option
             else:
-                print("Invalid argument.")
+                print(f"\n{bcolors.FAIL}Invalid argument.{bcolors.ENDC}\n")
                 option = input("Introduce a valid number: ")
         except ValueError:
-            print("Invalid argument.")
+            print(f"\n{bcolors.FAIL}Invalid argument.{bcolors.ENDC}\n")
             option = input("Introduce a valid number: ")
 
 # Function that validates user login
@@ -46,26 +53,30 @@ def validateOption(option):
 def validateUser():
     global users, currentUser
     while True:
+        if currentUser == False:
+            currentUser = 1
+            break
         idIdentified = False
         id = input("Enter your ID: ")
 
         for i in range(0, len(users)):
             if users[i]["id"] == id:
-                print("\nID was identified.\n")
+                print(f"\n{bcolors.OKCYAN}ID was correctly identified.{bcolors.ENDC}\n")
                 idIdentified = True
-                userPassword = input("Introduce the password: ")
+                userPassword = getpass("Introduce your password: ")
                 if users[i]["password"] == userPassword:
-                    print(f"\nWelcome {users[i]['name']}.\nYour rol in the system is: {users[i]['profile']}.")
+                    print("\n--------------------------------------------------------")
+                    print(f"{bcolors.OKCYAN}Welcome {users[i]['name']}.\nYour rol in the system is: {users[i]['profile']}.{bcolors.ENDC}")
                     currentUser = id
-                    print(f"Current user's ID is {currentUser}.")
+                    print("--------------------------------------------------------")
                     menuProfile()
                     break
                 else:
-                    print("Fail, incorrect password.")
+                    print(f"\n{bcolors.FAIL}Fail, incorrect password.{bcolors.ENDC}\n")
                 break
 
         if idIdentified == False:
-            print("Fail, ID wasn't identified.")
+            print(f"\n{bcolors.FAIL}Fail, ID wasn't identified.{bcolors.ENDC}\n")
 
 # Function that displays a menu based on user's profile
 
@@ -84,8 +95,8 @@ def menuProfile():
     elif users[listIndex]["profile"] == "judge":
         pass
 
-# Function that closes user session
+# Function that closes current user session
 
 def closeSession():
     global currentUser
-    currentUser = 0
+    currentUser = False

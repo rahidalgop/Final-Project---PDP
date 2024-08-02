@@ -1,6 +1,8 @@
 
-# Variables and lists
+# User management
 # ========================================================================================
+
+# Predifined users
 
 administrator = {
     "id":"000000000",
@@ -15,7 +17,7 @@ administrator = {
 
 isabel = {
     "id":"604840803",
-    "name":"Isa",
+    "name":"Isabel María Martínez Vindas",
     "password":"123",
     "profile":"citizen",
     "gender":"female",
@@ -26,7 +28,7 @@ isabel = {
 
 angelica = {
     "id":"208480382",
-    "name":"Ange",
+    "name":"Angélica Varela Vargas",
     "password":"456",
     "profile":"police",
     "gender":"female",
@@ -37,7 +39,7 @@ angelica = {
 
 raul = {
     "id":"207820653",
-    "name":"Miaul",
+    "name":"José Raúl Hidalgo Pérez",
     "password":"789",
     "profile":"judge",
     "gender":"male",
@@ -48,7 +50,14 @@ raul = {
 
 users = [administrator, isabel, angelica, raul]
 
-currentUser = 0
+# Current user logged in the system
+
+currentUser = 1
+
+# Residency management
+# ========================================================================================
+
+# Provinces and cantons
 
 alajuela = {
     "name": "Alajuela",
@@ -70,5 +79,21 @@ puntarenas = {
     "cantons": ["Esparza", "Buenos Aires"]
 }
 
-
 provinces = [alajuela,heredia,sanJose,puntarenas]
+
+# Classes
+# ========================================================================================
+
+# Color to implement to the terminal text
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+

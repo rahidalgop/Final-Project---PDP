@@ -1,6 +1,7 @@
 
 # Libraries
 # ========================================================================================
+
 import generalFunctions
 from globalVariables import *
 
@@ -9,4 +10,4 @@ from globalVariables import *
 
 if __name__ == "__main__":
 
-    generalFunctions.displayLoginMenu()
+    generalFunctions.loginMenu()
