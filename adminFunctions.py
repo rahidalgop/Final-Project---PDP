@@ -9,14 +9,15 @@ from datetime import datetime
 def menuAdmin():
     global currentUser,users,ids
     while True:
-        print("\n")
-        print("========================================================")
+        print("\n========================================================")
+        print("MAIN MENU")
+        print("========================================================\n")
         print("1. Create user.")
         print("2. Manage provinces.")
         print("3. Manage cantons.")
         print("4. Reports.")
         print("5. Close session.")
-        print("========================================================\n")
+        print("\n========================================================\n")
 
         option=int(input("Introduce a number: "))
         if option==1:
@@ -24,9 +25,9 @@ def menuAdmin():
         elif option==2:
             crudProvince()
         elif option==3:
-            pass
+            crudCanton()
         elif option==4:
-            pass
+            reportsMenu()
         elif option==5: 
             generalFunctions.closeSession()
             break
@@ -91,7 +92,6 @@ def createNewUser():
         newUserPassword = input("Introduce user's password: ")
         newUserValidatePassword = input("Confirm user's password: ")
         if newUserPassword == newUserValidatePassword:
-            print("New user created correctly. ")
             break
         else:
             print("Passwords do not match. ")
@@ -143,12 +143,14 @@ def crudProvince():
     global provinces
     while True:
         print("\n========================================================")
-        print("1. Create province.")
+        print("MANAGE PROVINCES")
+        print("========================================================\n")
+        print("\n1. Create province.")
         print("2. Display province list.")
         print("3. Update province.")
         print("4. Delete province.")
-        print("5. Return to main menu.")
-        print("========================================================\n")
+        print("5. Return to main menu.\n")
+        print("\n========================================================\n")
         
         while True:
             try:
@@ -220,3 +222,234 @@ def crudProvince():
         
         else:
             print("Invalid option. Please choose a number between 1 and 5.")
+
+# Function that executes a CRUD for cantons
+
+def crudCanton():
+    global provinces
+    while True:
+        print("\n========================================================")
+        print("MANAGE CANTONS")
+        print("========================================================\n")
+        print("1. Create canton.")
+        print("2. Display canton list.")
+        print("3. Update canton.")
+        print("4. Delete canton.")
+        print("5. Return to main menu.")
+        print("\n========================================================\n")
+        
+        while True:
+            try:
+                option = int(input("Introduce a number: "))
+                if option == 1 or option == 2 or option == 3 or option == 4 or option == 5:
+                    break
+                else:
+                    print("Please enter a valid number.")
+            except ValueError:
+                print("Please enter a valid number.")
+
+        if option == 1:
+            repeatedCanton = False
+            print("This is the current list of the provinces.\n")
+            for i in range(0,len(provinces)):
+                print(provinces[i]["name"])
+            while True:
+                repeatedProvince = False
+                provinceName = input("Enter province name: ")
+                for i in range(0,len(provinces)):
+                    if provinceName == provinces[i]["name"]:
+                        repeatedProvince = True
+                        provinceIndex = i
+                        break
+        
+                if repeatedProvince == True:
+                    break
+                else:
+                    print("A province with this name doesn't exist.")
+
+            repeatedCanton = False
+            while True:
+                name = input("Enter canton name: ")
+                for i in range(0,len(provinces)):
+                    for x in range(0,len(provinces[i]["cantons"])):
+                        if name == provinces[i]["cantons"][x]:
+                                repeatedCanton = True
+                if repeatedCanton == True:
+                    print("A canton with this name already exists.")
+                else:
+                    provinces[provinceIndex]["cantons"].append(name)
+                    print("The canton was added correctly.")
+                    break
+    
+    
+        elif option == 2:
+            print("This is the current list of the cantons.\n")
+            for i in range(0,len(provinces)):
+                for x in range(0,len(provinces[i]["cantons"])):
+                    print(provinces[i]["cantons"][x])
+    
+
+        elif option == 3:
+            print("This is the current list of the cantons.\n")
+            for i in range(0,len(provinces)):
+                for x in range(0,len(provinces[i]["cantons"])):
+                    print(provinces[i]["cantons"][x])
+    
+
+            while True:
+                repeatedCanton = False
+                name = input("\nEnter the name of the canton you want to update: ")
+                for i in range(0,len(provinces)):
+                    for x in range(0,len(provinces[i]["cantons"])):
+                        if name == provinces[i]["cantons"][x]:
+                            repeatedCanton = True
+                if repeatedCanton == True:
+                    break
+                else:
+                    print("A canton with this name doesn't exist.")
+
+            while True:
+                newName = input("Enter new name for the canton: ")
+                if newName != name:
+                    for i in range(0,len(provinces)):
+                        for x in range(0,len(provinces[i]["cantons"])):
+                            if name == provinces[i]["cantons"][x]:
+                                provinces[i]["cantons"][x] = newName
+                                print("The name of the canton has been updated.")
+                                break
+                    break
+                else:
+                    print("The new name can't be equal to current name.")
+            
+
+        elif option == 4:
+            print("This is the current list of the cantons.\n")
+            for i in range(0,len(provinces)):
+                for x in range(0,len(provinces[i]["cantons"])):
+                    print(provinces[i]["cantons"][x])
+    
+
+            while True:
+                repeatedCanton = False
+                name = input("\nEnter the name of the canton you want to delete: ")
+                for i in range(0,len(provinces)):
+                    for x in range(0,len(provinces[i]["cantons"])):
+                        if name == provinces[i]["cantons"][x]:
+                            repeatedCanton = True
+                if repeatedCanton == True:
+                    break
+                else:
+                    print("A canton with this name doesn't exist.")
+                
+            for i in range(0,len(provinces)):
+                for x in range(0,len(provinces[i]["cantons"])):
+                    if name == provinces[i]["cantons"][x]:
+                        del provinces[i]["cantons"][x] 
+                        print("Canton deleted successfully.")
+
+        elif option == 5:
+            break
+        else:
+            print("Invalid option. Please choose a number between 1 and 5.")
+
+
+
+# Function that displays reports menu
+
+def reportsMenu():
+    while True:
+        print("\n========================================================")
+        print("REPORTS")
+        print("========================================================\n")
+        print("1. Cantons in alphabetical order.")
+        print("2. Users by ascending age.")
+        print("3. Quantity of women and men.")
+        print("4. Men by province.")
+        print("5. Women by canton.")
+        print("6. Vehicles by type.")
+        print("7. Pending approval events with a fine higher than 45 000 colones.")
+        print("8. Completed events.")
+        print("9. Open events by hour.")
+        print("10. Province with the highest and lowest number of incidents.")
+        print("11. Return to main menu.")
+        print("\n========================================================\n")
+        
+        while True:
+            try:
+                option = int(input("Introduce a number: "))
+                if option >= 1 and option <= 11 and option % 1 == 0:
+                    break
+                else:
+                    print("Please enter a valid number.")
+            except ValueError:
+                print("Please enter a valid number.")
+
+        if option == 1:
+            generateReportOne()
+        elif option == 2:
+            pass
+        elif option == 3:
+            generateReportThree()
+        elif option == 4:
+            pass
+        elif option == 5:
+            pass
+        elif option == 6:
+            pass
+        elif option == 7:
+            pass
+        elif option == 8:
+            pass
+        elif option == 9:
+            pass
+        elif option == 10:
+            pass
+        elif option == 11:
+            break
+
+# Function that generates the report number one (cantons in alphabetical order)
+
+def generateReportOne():
+
+    global provinces
+
+    cantonsAlphabeticOrder = []
+
+    for i in range(0, len(provinces)):
+        for x in range(0, len(provinces[i]["cantons"])):
+            cantonsAlphabeticOrder.append(provinces[i]["cantons"][x])
+
+    cantonsAlphabeticOrder = sorted(cantonsAlphabeticOrder)
+
+    print("\n--------------------------------------------------------")
+    print("List of cantons in alphabetical order.")
+    print("--------------------------------------------------------")
+
+    for i in cantonsAlphabeticOrder:
+        print(i)
+
+    print("--------------------------------------------------------\n")
+
+# Function that generates the report number three (quantity of women and men)
+
+def generateReportThree():
+
+    global users
+
+    women = 0
+    men = 0
+
+    for i in range(0, len(users)):
+        if users[i]["gender"] == "female":
+            women += 1
+        else:
+            men += 1
+
+    print("\n--------------------------------------------------------")
+    print("Quantity of women and men.")
+    print("--------------------------------------------------------")
+
+    print(f"Current quantity of male users in the system: {men}")
+    print(f"Current quantity of female users in the system: {women}")
+
+    print("--------------------------------------------------------\n")

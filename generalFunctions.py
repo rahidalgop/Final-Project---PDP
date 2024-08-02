@@ -10,8 +10,7 @@ from datetime import datetime
 
 def displayLoginMenu ():
     while True:
-        print("\n")
-        print("========================================================")
+        print("\n========================================================")
         print("VEHICLE COLLISION MANAGEMENT PROGRAM")
         print("========================================================\n")
         print("1. Login.")
@@ -56,7 +55,7 @@ def validateUser():
                 idIdentified = True
                 userPassword = input("Introduce the password: ")
                 if users[i]["password"] == userPassword:
-                    print(f"Welcome {users[i]['name']}.\nYour rol in the system is: {users[i]['profile']}.")
+                    print(f"\nWelcome {users[i]['name']}.\nYour rol in the system is: {users[i]['profile']}.")
                     currentUser = id
                     print(f"Current user's ID is {currentUser}.")
                     menuProfile()
