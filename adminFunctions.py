@@ -178,15 +178,18 @@ def crudProvince():
                     break
             newProvince = dict()
             newProvince["name"] = name
+            newProvince["cantons"] = []
             provinces.append(newProvince)
             print(f"\n{bcolors.OKCYAN}The province was added correctly.\n{bcolors.ENDC}")
-
         
         elif option == 2:
-            print("This is the current list of the provinces.\n")
+            print(f"\n{bcolors.BOLD}This is the current list of provinces.{bcolors.ENDC}\n")
+            print("--------------------------------------------------------")
+            print("Provinces")
+            print("--------------------------------------------------------")
             for i in range(0,len(provinces)):
                 print(provinces[i]["name"])
-            print("\n")
+            print("--------------------------------------------------------")
         
         elif option == 3:
             print("This is the current list of the provinces.\n")
@@ -206,7 +209,7 @@ def crudProvince():
                 print(f"\n{bcolors.FAIL}Province not found.{bcolors.ENDC}\n")
 
         elif option == 4:
-            print("This is the current list of the provinces.\n")
+            print("This is the current list of provinces.\n")
             for i in range(0,len(provinces)):
                 print(provinces[i]["name"])
             name = input("Enter province name to delete: ")
@@ -251,12 +254,13 @@ def crudCanton():
 
         if option == 1:
             repeatedCanton = False
-            print("This is the current list of the provinces.\n")
+            print("\nThis is the current list of provinces.\n")
             for i in range(0,len(provinces)):
                 print(provinces[i]["name"])
+            print("")
             while True:
                 repeatedProvince = False
-                provinceName = input("Enter province name: ")
+                provinceName = input("Enter the name of the province to which the new canton will belong to: ")
                 for i in range(0,len(provinces)):
                     if provinceName == provinces[i]["name"]:
                         repeatedProvince = True
@@ -270,7 +274,7 @@ def crudCanton():
 
             repeatedCanton = False
             while True:
-                name = input("Enter canton name: ")
+                name = input("Introduce the name of the new canton: ")
                 for i in range(0,len(provinces)):
                     for x in range(0,len(provinces[i]["cantons"])):
                         if name == provinces[i]["cantons"][x]:
@@ -284,7 +288,7 @@ def crudCanton():
     
     
         elif option == 2:
-            print("\nThis is the current list of the cantons.\n")
+            print("\nThis is the current list of cantons.\n")
             print("--------------------------------------------------------")
             for i in range(0,len(provinces)):
                 print(f"Cantons in {bcolors.BOLD}{provinces[i]["name"]} province:{bcolors.ENDC}")
@@ -294,7 +298,7 @@ def crudCanton():
                 print("--------------------------------------------------------")
     
         elif option == 3:
-            print("This is the current list of the cantons.\n")
+            print("This is the current list of cantons.\n")
             for i in range(0,len(provinces)):
                 for x in range(0,len(provinces[i]["cantons"])):
                     print(provinces[i]["cantons"][x])
@@ -324,9 +328,8 @@ def crudCanton():
                 else:
                     print(f"\n{bcolors.FAIL}New name can't be equal to current name.{bcolors.ENDC}\n")
             
-
         elif option == 4:
-            print("This is the current list of the cantons.\n")
+            print("This is the current list of cantons.\n")
             for i in range(0,len(provinces)):
                 for x in range(0,len(provinces[i]["cantons"])):
                     print(provinces[i]["cantons"][x])
