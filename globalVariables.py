@@ -1,13 +1,14 @@
-# Variables
+
+# Variables and lists
 # ========================================================================================
 
 administrator = {
     "id":"000000000",
-    "name":"Administrator",
+    "name":"John Doe",
     "password":"000",
     "profile":"administrator",
-    "gender":"female",
-    "age":20,
+    "gender":"male",
+    "age":35,
     "residency":"cq",
     "birthdate":"february"
 }
@@ -29,7 +30,7 @@ angelica = {
     "password":"456",
     "profile":"police",
     "gender":"female",
-    "age":"20",
+    "age":20,
     "residency":"cq",
     "birthdate":"november"
 }
