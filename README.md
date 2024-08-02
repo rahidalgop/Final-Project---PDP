@@ -7,7 +7,7 @@
 - Isabel María Martínez Vindas.
 
 #### **IMPORTANT:**
-1. Run the file vehicleCollision.py to execute the program.
+1. Execute the file vehicleCollision.py to run the program.
 2. In order to login as the administrator within the system, use the following credentials:
 
 ID: 000000000.<br>
