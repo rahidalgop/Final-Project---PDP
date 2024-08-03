@@ -115,4 +115,4 @@ def currentUserInfo(id):
 
 def printUserInfo():
     global currentUserName, currentUserProfile
-    return f"{bcolors.OKCYAN}Logged as {currentUserName} ({currentUserProfile}).{bcolors.ENDC}"
+    return f"{bcolors.OKCYAN}Logged as {currentUserName} ({currentUserProfile}){bcolors.ENDC}"
