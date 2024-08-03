@@ -111,6 +111,8 @@ def currentUserInfo(id):
             currentUserName = users[i]["name"]
             currentUserProfile = users[i]["profile"]
 
+# Function that returns current user's name and role
+
 def printUserInfo():
     global currentUserName, currentUserProfile
     return f"{bcolors.OKCYAN}Logged as {currentUserName} ({currentUserProfile}).{bcolors.ENDC}"
