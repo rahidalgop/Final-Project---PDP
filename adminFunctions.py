@@ -5,6 +5,7 @@
 import generalFunctions
 from globalVariables import *
 from datetime import datetime
+from getpass import getpass
 
 # Functions
 # ===================================================================================================================
@@ -92,8 +93,8 @@ def createNewUser():
             print(f"\n{bcolors.FAIL}Invalid input.{bcolors.ENDC}\n")
 
     while True:
-        newUserPassword = input("Introduce user's password: ")
-        newUserValidatePassword = input("Confirm user's password: ")
+        newUserPassword = getpass("Introduce user's password (hidden while you write): ")
+        newUserValidatePassword = getpass("Confirm user's password (hidden while you write): ")
         if newUserPassword == newUserValidatePassword:
             break
         else:
@@ -183,16 +184,16 @@ def crudProvince():
             print(f"\n{bcolors.OKCYAN}The province was added correctly.\n{bcolors.ENDC}")
         
         elif option == 2:
-            print(f"\n{bcolors.BOLD}This is the current list of provinces.{bcolors.ENDC}\n")
+            print(f"\nThis is the current list of provinces.\n")
             print("-----------------------------------------------------------------------------------")
-            print("Provinces")
+            print(f"{bcolors.BOLD}Provinces{bcolors.ENDC}")
             print("-----------------------------------------------------------------------------------")
             for i in range(0,len(provinces)):
                 print(provinces[i]["name"])
             print("-----------------------------------------------------------------------------------")
         
         elif option == 3:
-            print("This is the current list of the provinces.\n")
+            print(f"This is the current list of provinces.\n")
             for i in range(0,len(provinces)):
                 print(provinces[i]["name"])
             name = input("Enter the name of the province to update: ")
@@ -291,14 +292,14 @@ def crudCanton():
             print("\nThis is the current list of cantons.\n")
             print("-----------------------------------------------------------------------------------")
             for i in range(0,len(provinces)):
-                print(f"Cantons in {bcolors.BOLD}{provinces[i]["name"]} province:{bcolors.ENDC}")
+                print(f"{bcolors.BOLD}Cantons in {provinces[i]["name"]} province:{bcolors.ENDC}")
                 print("-----------------------------------------------------------------------------------")
                 for x in range(0,len(provinces[i]["cantons"])):
                     print(provinces[i]["cantons"][x])
                 print("-----------------------------------------------------------------------------------")
     
         elif option == 3:
-            print("This is the current list of cantons.\n")
+            print("\nThis is the current list of cantons.\n")
             for i in range(0,len(provinces)):
                 for x in range(0,len(provinces[i]["cantons"])):
                     print(provinces[i]["cantons"][x])
@@ -329,7 +330,7 @@ def crudCanton():
                     print(f"\n{bcolors.FAIL}New name can't be equal to current name.{bcolors.ENDC}\n")
             
         elif option == 4:
-            print("This is the current list of cantons.\n")
+            print("\nThis is the current list of cantons.\n")
             for i in range(0,len(provinces)):
                 for x in range(0,len(provinces[i]["cantons"])):
                     print(provinces[i]["cantons"][x])
@@ -428,7 +429,7 @@ def generateReportOne():
     cantonsAlphabeticOrder = sorted(cantonsAlphabeticOrder)
 
     print("\n-----------------------------------------------------------------------------------")
-    print("List of cantons in alphabetical order.")
+    print(f"{bcolors.BOLD}List of cantons in alphabetical order.{bcolors.ENDC}")
     print("-----------------------------------------------------------------------------------")
 
     for i in cantonsAlphabeticOrder:
@@ -452,7 +453,7 @@ def generateReportThree():
             men += 1
 
     print("\n-----------------------------------------------------------------------------------")
-    print("Quantity of women and men.")
+    print(f"{bcolors.BOLD}Quantity of women and men.{bcolors.ENDC}")
     print("-----------------------------------------------------------------------------------")
 
     print(f"Current quantity of male users in the system: {men}")

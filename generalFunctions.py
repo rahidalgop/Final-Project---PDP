@@ -63,7 +63,7 @@ def validateUser():
             if users[i]["id"] == id:
                 print(f"\n{bcolors.OKCYAN}ID was correctly identified.{bcolors.ENDC}\n")
                 idIdentified = True
-                userPassword = getpass("Introduce your password: ")
+                userPassword = getpass("Introduce your password (hidden while you write): ")
                 if users[i]["password"] == userPassword:
                     print("\n-----------------------------------------------------------------------------------")
                     print(f"{bcolors.OKCYAN}Welcome {users[i]['name']}.\nYour rol in the system is: {users[i]['profile']}.{bcolors.ENDC}")
