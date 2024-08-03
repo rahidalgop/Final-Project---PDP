@@ -1,6 +1,6 @@
 
 # User management
-# ========================================================================================
+# ===================================================================================================================
 
 # Predifined users
 
@@ -50,12 +50,14 @@ raul = {
 
 users = [administrator, isabel, angelica, raul]
 
-# Current user logged in the system
+# Current user logged in the system info
 
 currentUser = 1
+currentUserName = ''
+currentUserProfile = ''
 
 # Residency management
-# ========================================================================================
+# ===================================================================================================================
 
 # Provinces and cantons
 
@@ -82,7 +84,7 @@ puntarenas = {
 provinces = [alajuela,heredia,sanJose,puntarenas]
 
 # Classes
-# ========================================================================================
+# ===================================================================================================================
 
 # Color to implement to the terminal text
 

@@ -1,28 +1,28 @@
 
 # Libraries
-# ========================================================================================
+# ===================================================================================================================
 
 import generalFunctions
 from globalVariables import *
 from datetime import datetime
 
 # Functions
-# ========================================================================================
+# ===================================================================================================================
 
 # Function that displays the menu for admin profile
 
 def menuAdmin():
-    global currentUser, users
+    global currentUser, users, currentUserProfile, currentUserName
     while True:
-        print("\n========================================================")
-        print(f"{bcolors.BOLD}MAIN MENU{bcolors.ENDC}")
-        print("========================================================\n")
+        print("\n===================================================================================")
+        print(f"{bcolors.BOLD}MAIN MENU - {bcolors.ENDC}{generalFunctions.printUserInfo()}")
+        print("===================================================================================\n")
         print(f"{bcolors.OKCYAN}1. Create user.")
         print(f"2. Manage provinces.")
         print(f"3. Manage cantons.")
         print(f"4. Reports.")
         print(f"5. Close session.{bcolors.ENDC}")
-        print("\n========================================================\n")
+        print("\n===================================================================================\n")
 
         option=int(input("Introduce a number: "))
         if option == 1:
@@ -143,15 +143,15 @@ def createNewUser():
 def crudProvince():
     global provinces
     while True:
-        print("\n========================================================")
-        print(f"{bcolors.BOLD}MANAGE PROVINCES{bcolors.ENDC}")
-        print("========================================================\n")
+        print("\n===================================================================================")
+        print(f"{bcolors.BOLD}MANAGE PROVINCES - {bcolors.ENDC}{generalFunctions.printUserInfo()}")
+        print("===================================================================================\n")
         print(f"{bcolors.OKCYAN}1. Create province.")
         print(f"2. Display provinces list.")
         print(f"3. Update province.")
         print(f"4. Delete province.")
         print(f"5. Return to main menu.{bcolors.ENDC}")
-        print("\n========================================================\n")
+        print("\n===================================================================================\n")
         
         while True:
             try:
@@ -184,12 +184,12 @@ def crudProvince():
         
         elif option == 2:
             print(f"\n{bcolors.BOLD}This is the current list of provinces.{bcolors.ENDC}\n")
-            print("--------------------------------------------------------")
+            print("-----------------------------------------------------------------------------------")
             print("Provinces")
-            print("--------------------------------------------------------")
+            print("-----------------------------------------------------------------------------------")
             for i in range(0,len(provinces)):
                 print(provinces[i]["name"])
-            print("--------------------------------------------------------")
+            print("-----------------------------------------------------------------------------------")
         
         elif option == 3:
             print("This is the current list of the provinces.\n")
@@ -232,15 +232,15 @@ def crudProvince():
 def crudCanton():
     global provinces
     while True:
-        print("\n========================================================")
-        print(f"{bcolors.BOLD}MANAGE CANTONS{bcolors.ENDC}")
-        print("========================================================\n")
+        print("\n===================================================================================")
+        print(f"{bcolors.BOLD}MANAGE CANTONS - {bcolors.ENDC}{generalFunctions.printUserInfo()}")
+        print("===================================================================================\n")
         print(f"{bcolors.OKCYAN}1. Create canton.")
         print(f"2. Display cantons list.")
         print(f"3. Update canton.")
         print(f"4. Delete canton.")
         print(f"5. Return to main menu.{bcolors.ENDC}")
-        print("\n========================================================\n")
+        print("\n===================================================================================\n")
         
         while True:
             try:
@@ -289,13 +289,13 @@ def crudCanton():
     
         elif option == 2:
             print("\nThis is the current list of cantons.\n")
-            print("--------------------------------------------------------")
+            print("-----------------------------------------------------------------------------------")
             for i in range(0,len(provinces)):
                 print(f"Cantons in {bcolors.BOLD}{provinces[i]["name"]} province:{bcolors.ENDC}")
-                print("--------------------------------------------------------")
+                print("-----------------------------------------------------------------------------------")
                 for x in range(0,len(provinces[i]["cantons"])):
                     print(provinces[i]["cantons"][x])
-                print("--------------------------------------------------------")
+                print("-----------------------------------------------------------------------------------")
     
         elif option == 3:
             print("This is the current list of cantons.\n")
@@ -364,9 +364,9 @@ def crudCanton():
 
 def reportsMenu():
     while True:
-        print("\n========================================================")
-        print(f"{bcolors.BOLD}REPORTS{bcolors.ENDC}")
-        print("========================================================\n")
+        print("\n===================================================================================")
+        print(f"{bcolors.BOLD}REPORTS - {bcolors.ENDC}{generalFunctions.printUserInfo()}")
+        print("===================================================================================\n")
         print(f"{bcolors.OKCYAN}1. Cantons in alphabetical order.")
         print(f"2. Users by ascending age.")
         print(f"3. Quantity of women and men.")
@@ -378,7 +378,7 @@ def reportsMenu():
         print(f"9. Open events by hour.")
         print(f"10. Province with the highest and lowest number of incidents.")
         print(f"11. Return to main menu.{bcolors.ENDC}")
-        print("\n========================================================\n")
+        print("\n===================================================================================\n")
         
         while True:
             try:
@@ -427,14 +427,14 @@ def generateReportOne():
 
     cantonsAlphabeticOrder = sorted(cantonsAlphabeticOrder)
 
-    print("\n--------------------------------------------------------")
+    print("\n-----------------------------------------------------------------------------------")
     print("List of cantons in alphabetical order.")
-    print("--------------------------------------------------------")
+    print("-----------------------------------------------------------------------------------")
 
     for i in cantonsAlphabeticOrder:
         print(i)
 
-    print("--------------------------------------------------------\n")
+    print("-----------------------------------------------------------------------------------\n")
 
 # Function that generates the report number three (quantity of women and men)
 
@@ -451,11 +451,11 @@ def generateReportThree():
         else:
             men += 1
 
-    print("\n--------------------------------------------------------")
+    print("\n-----------------------------------------------------------------------------------")
     print("Quantity of women and men.")
-    print("--------------------------------------------------------")
+    print("-----------------------------------------------------------------------------------")
 
     print(f"Current quantity of male users in the system: {men}")
     print(f"Current quantity of female users in the system: {women}")
 
-    print("--------------------------------------------------------\n")
+    print("-----------------------------------------------------------------------------------\n")

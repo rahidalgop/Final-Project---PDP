@@ -1,6 +1,6 @@
 
 # Libraries
-# ========================================================================================
+# ===================================================================================================================
 
 import vehicleCollision
 import adminFunctions
@@ -9,7 +9,7 @@ from datetime import datetime
 from getpass import getpass
 
 # Functions
-# ========================================================================================
+# ===================================================================================================================
 
 # Function that displays the login menu
 
@@ -17,12 +17,12 @@ def loginMenu ():
     global currentUser
     currentUser = 1
     while True:
-        print("\n========================================================")
+        print("\n===================================================================================")
         print(f"{bcolors.BOLD}VEHICLE COLLISION MANAGEMENT PROGRAM{bcolors.ENDC}")
-        print("========================================================\n")
+        print("===================================================================================\n")
         print(f"{bcolors.OKCYAN}1. Login.")
         print(f"2. Exit program.\n{bcolors.ENDC}")
-        print("========================================================\n")
+        print("===================================================================================\n")
         loginMenuOption = input("Introduce a number: ")
 
         loginMenuOption = validateOption(loginMenuOption)
@@ -65,10 +65,11 @@ def validateUser():
                 idIdentified = True
                 userPassword = getpass("Introduce your password: ")
                 if users[i]["password"] == userPassword:
-                    print("\n--------------------------------------------------------")
+                    print("\n-----------------------------------------------------------------------------------")
                     print(f"{bcolors.OKCYAN}Welcome {users[i]['name']}.\nYour rol in the system is: {users[i]['profile']}.{bcolors.ENDC}")
                     currentUser = id
-                    print("--------------------------------------------------------")
+                    currentUserInfo(id)
+                    print("-----------------------------------------------------------------------------------")
                     menuProfile()
                     break
                 else:
@@ -100,3 +101,16 @@ def menuProfile():
 def closeSession():
     global currentUser
     currentUser = False
+
+# Function that creates a variable for current user's name and role
+
+def currentUserInfo(id):
+    global currentUserName, currentUserProfile
+    for i in range(0, len(users)):
+        if id == users[i]["id"]:
+            currentUserName = users[i]["name"]
+            currentUserProfile = users[i]["profile"]
+
+def printUserInfo():
+    global currentUserName, currentUserProfile
+    return f"{bcolors.OKCYAN}Logged as {currentUserName} ({currentUserProfile}).{bcolors.ENDC}"
