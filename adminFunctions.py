@@ -25,15 +25,7 @@ def menuAdmin():
         print(f"5. Close session.{bcolors.ENDC}")
         print("\n===================================================================================\n")
 
-        while True:
-            try:
-                option = int(input("Introduce a number: "))
-                if option == 1 or option == 2 or option == 3 or option == 4 or option == 5:
-                    break
-                else:
-                    print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
-            except ValueError:
-                print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
+        option = generalFunctions.validateOption(5)
 
         if option == 1:
             createNewUser()
@@ -217,16 +209,7 @@ def crudProvince():
         print(f"5. Return to main menu.{bcolors.ENDC}")
         print("\n===================================================================================\n")
         
-        while True:
-            try:
-                option = int(input("Introduce a number: "))
-                if option == 1 or option == 2 or option == 3 or option == 4 or option == 5:
-                    break
-                else:
-                    print(f"{bcolors.FAIL}\nPlease enter a valid number.{bcolors.ENDC}\n")
-            except ValueError:
-                print(f"{bcolors.FAIL}\nPlease enter a valid number.{bcolors.ENDC}\n")
-
+        option = generalFunctions.validateOption(5)
 
         if option == 1:
             while True:
@@ -319,15 +302,7 @@ def crudCanton():
         print(f"5. Return to main menu.{bcolors.ENDC}")
         print("\n===================================================================================\n")
         
-        while True:
-            try:
-                option = int(input("Introduce a number: "))
-                if option == 1 or option == 2 or option == 3 or option == 4 or option == 5:
-                    break
-                else:
-                    print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
-            except ValueError:
-                print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
+        option = generalFunctions.validateOption(5)
 
         if option == 1:
             repeatedCanton = False
@@ -445,15 +420,7 @@ def reportsMenu():
         print(f"11. Return to main menu.{bcolors.ENDC}")
         print("\n===================================================================================\n")
         
-        while True:
-            try:
-                option = int(input("Introduce a number: "))
-                if option >= 1 and option <= 11 and option % 1 == 0:
-                    break
-                else:
-                    print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
-            except ValueError:
-                print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
+        option = generalFunctions.validateOption(11)
 
         if option == 1:
             generateReportOne()

@@ -22,15 +22,7 @@ def menuOfficer():
         print(f"3. Close session.{bcolors.ENDC}")
         print("\n===================================================================================\n")
 
-        while True:
-            try:
-                option = int(input("Introduce a number: "))
-                if option == 1 or option == 2 or option == 3:
-                    break
-                else:
-                    print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
-            except ValueError:
-                print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
+        option = generalFunctions.validateOption(3)
 
         if option == 1:
             pass
@@ -39,4 +31,5 @@ def menuOfficer():
         elif option == 3:
             generalFunctions.closeSession()
             break
+
 

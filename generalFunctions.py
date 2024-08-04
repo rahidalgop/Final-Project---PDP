@@ -22,30 +22,28 @@ def loginMenu ():
         print(f"{bcolors.OKCYAN}1. Login.")
         print(f"2. Exit program.\n{bcolors.ENDC}")
         print("===================================================================================\n")
-        loginMenuOption = input("Introduce a number: ")
+        
+        option = validateOption(2)
 
-        loginMenuOption = validateOption(loginMenuOption)
-
-        if loginMenuOption == 1:
+        if option == 1:
             validateUser()
-        elif loginMenuOption == 2:
+        elif option == 2:
             print(f"\n{bcolors.OKCYAN}See you later!{bcolors.ENDC}\n")
             break
 
 # Function that validates that user's input in the menu is valid
 
-def validateOption(option):
+def validateOption(optionsQuantity):
     while True:
+        option = input("Introduce a number: ")
         try:
             option = int(option)
-            if option == 1 or option == 2 or option == 3:
+            if option >= 1 and option <= optionsQuantity and option % 1 == 0:
                 return option
             else:
-                print(f"\n{bcolors.FAIL}Invalid argument.{bcolors.ENDC}\n")
-                option = input("Introduce a valid number: ")
+                print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
         except ValueError:
-            print(f"\n{bcolors.FAIL}Invalid argument.{bcolors.ENDC}\n")
-            option = input("Introduce a valid number: ")
+            print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
 
 # Function that validates user login
 
