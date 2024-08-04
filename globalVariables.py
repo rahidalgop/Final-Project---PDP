@@ -11,7 +11,7 @@ administrator = {
     "profile":"administrator",
     "gender":"male",
     "age":35,
-    "residency":"cq",
+    "residency":"San José, Moravia",
     "birthdate":"february"
 }
 
@@ -22,7 +22,7 @@ isabel = {
     "profile":"citizen",
     "gender":"female",
     "age":20,
-    "residency":"cq",
+    "residency":"Alajuela, San Carlos",
     "birthdate":"february"
 }
 
@@ -30,10 +30,10 @@ angelica = {
     "id":"208480382",
     "name":"Angélica Varela Vargas",
     "password":"456",
-    "profile":"police",
+    "profile":"police officer",
     "gender":"female",
     "age":20,
-    "residency":"cq",
+    "residency":"Alajuela, San Carlos",
     "birthdate":"november"
 }
 
@@ -44,7 +44,7 @@ raul = {
     "profile":"judge",
     "gender":"male",
     "age":25,
-    "residency":"cq",
+    "residency":"Alajuela, San Carlos",
     "birthdate":"august"
 }
 

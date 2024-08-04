@@ -2,8 +2,7 @@
 # Libraries
 # ===================================================================================================================
 
-import vehicleCollision
-import adminFunctions
+import vehicleCollision, adminFunctions, officerFunctions, judgeFunctions
 from globalVariables import *
 from datetime import datetime
 from getpass import getpass
@@ -91,10 +90,10 @@ def menuProfile():
         adminFunctions.menuAdmin()
     elif users[listIndex]["profile"] == "citizen":
         pass
-    elif users[listIndex]["profile"] == "police":
-        pass
+    elif users[listIndex]["profile"] == "police officer":
+        officerFunctions.menuOfficer()
     elif users[listIndex]["profile"] == "judge":
-        pass
+        judgeFunctions.menuJudge()
 
 # Function that closes current user session
 
@@ -116,3 +115,4 @@ def currentUserInfo(id):
 def printUserInfo():
     global currentUserName, currentUserProfile
     return f"{bcolors.OKCYAN}Logged as {currentUserName} ({currentUserProfile}){bcolors.ENDC}"
+
