@@ -2,7 +2,7 @@
 # Libraries
 # ===================================================================================================================
 
-import vehicleCollision, adminFunctions, officerFunctions, judgeFunctions
+import vehicleCollision, adminFunctions, officerFunctions, judgeFunctions, citizenFunctions
 from globalVariables import *
 from datetime import datetime
 from getpass import getpass
@@ -87,7 +87,7 @@ def menuProfile():
     if users[listIndex]["profile"] == "administrator":
         adminFunctions.menuAdmin()
     elif users[listIndex]["profile"] == "citizen":
-        pass
+        citizenFunctions.menuCitizen()
     elif users[listIndex]["profile"] == "police officer":
         officerFunctions.menuOfficer()
     elif users[listIndex]["profile"] == "judge":
@@ -102,11 +102,12 @@ def closeSession():
 # Function that creates a variable for current user's name and role
 
 def currentUserInfo(id):
-    global currentUserName, currentUserProfile
+    global currentUser, currentUserName, currentUserProfile, currentUserID
     for i in range(0, len(users)):
         if id == users[i]["id"]:
             currentUserName = users[i]["name"]
             currentUserProfile = users[i]["profile"]
+            currentUserID = id
 
 # Function that returns current user's name and role
 

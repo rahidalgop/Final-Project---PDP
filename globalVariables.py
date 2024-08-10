@@ -12,7 +12,7 @@ administrator = {
     "gender":"male",
     "age":35,
     "residency":"San José, Moravia",
-    "birthdate":"february"
+    "birthdate":"10/06/1990"
 }
 
 isabel = {
@@ -23,7 +23,7 @@ isabel = {
     "gender":"female",
     "age":20,
     "residency":"Alajuela, San Carlos",
-    "birthdate":"february"
+    "birthdate":"10/06/1990"
 }
 
 angelica = {
@@ -34,7 +34,7 @@ angelica = {
     "gender":"female",
     "age":20,
     "residency":"Alajuela, San Carlos",
-    "birthdate":"november"
+    "birthdate":"10/06/1990"
 }
 
 raul = {
@@ -45,16 +45,28 @@ raul = {
     "gender":"male",
     "age":25,
     "residency":"Alajuela, San Carlos",
-    "birthdate":"august"
+    "birthdate":"10/06/1990"
 }
 
-users = [administrator, isabel, angelica, raul]
+citizen = {
+    "id":"111111111",
+    "name":"Mark Hoppus",
+    "password":"111",
+    "profile":"citizen",
+    "gender":"male",
+    "age":32,
+    "residency":"Alajuela, San Carlos",
+    "birthdate":"10/06/1990"
+}
+
+users = [administrator, isabel, angelica, raul, citizen]
 
 # Current user logged in the system info
 
 currentUser = 1
 currentUserName = ''
 currentUserProfile = ''
+currentUserID = ''
 
 # Residency management
 # ===================================================================================================================
@@ -81,9 +93,59 @@ puntarenas = {
     "cantons": ["Esparza", "Buenos Aires"]
 }
 
-provinces = [alajuela,heredia,sanJose,puntarenas]
+provinces = [alajuela, heredia, sanJose, puntarenas]
 
-# Classes
+# Event management
+# ===================================================================================================================
+
+events = []
+
+class Event:
+    def __init__(self, code, citizenName, location, carPlate, status, dateTime, fee):
+        self.code = code
+        self.citizenName = citizenName
+        self.location = location
+        self.carPlate = carPlate
+        self.status = status
+        self.dateTime = dateTime
+        self.fee = fee
+
+# Vehicle management
+# ===================================================================================================================
+
+vehicle01 = {
+    "ownerID":"111111111",
+    "numberPlate":"AAA-111",
+    "year":"2015",
+    "brand":"Toyota",
+    "color":"white",
+    "type":"automobile"
+}
+
+vehicle02 = {
+    "ownerID":"111111111",
+    "numberPlate":"BBB-222",
+    "year":"2018",
+    "brand":"Honda",
+    "color":"red",
+    "type":"motorcycle"
+}
+
+vehicle03 = {
+    "ownerID":"222222222",
+    "numberPlate":"QWE-123",
+    "year":"2018",
+    "brand":"Honda",
+    "color":"red",
+    "type":"motorcycle"
+}
+
+vehicles = [vehicle01, vehicle02]
+
+vehicleBrands = ["Toyota", "Ford", "Volkswagen", "Nissan", "BMW", "Chevrolet", "Honda", "Hyundai", "Kia", "Other"]
+vehicleColors = ["white", "gray", "black", "blue", "silver", "red", "green", "yellow", "orange", "other"]
+
+# Interface / aesthetics
 # ===================================================================================================================
 
 # Color to implement to the terminal text
