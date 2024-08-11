@@ -47,7 +47,7 @@ def printCurrentProvinces():
 
     print("\nThis is the current list of provinces.\n")
     for i in range(0,len(provinces)):
-        print(f"{bcolors.OKCYAN}{provinces[i]["name"]}{bcolors.ENDC}")
+        print(f"{bcolors.OKCYAN}{provinces[i]['name']}{bcolors.ENDC}")
     print("") 
 
 # Function that prints the current list of cantons
@@ -59,7 +59,7 @@ def printCurrentCantons():
     print("\nThis is the current list of cantons.\n")
     for i in range(0,len(provinces)):
         for x in range(0,len(provinces[i]["cantons"])):
-            print(f"{bcolors.OKCYAN}{provinces[i]["cantons"][x]}{bcolors.ENDC}")
+            print(f"{bcolors.OKCYAN}{provinces[i]['cantons'][x]}{bcolors.ENDC}")
     print("")
 
 # Function that creates a new user
@@ -105,7 +105,7 @@ def createNewUser():
     
     print("\nThis is the current list of cantons within the selected province.\n")
     for i in range(0,len(provinces[newUserProvinceIndex]["cantons"])):
-        print(f"{bcolors.OKCYAN}{provinces[newUserProvinceIndex]["cantons"][i]}{bcolors.ENDC}")
+        print(f"{bcolors.OKCYAN}{provinces[newUserProvinceIndex]['cantons'][i]}{bcolors.ENDC}")
 
     while True:
         repeatedCanton = False
@@ -339,7 +339,7 @@ def crudCanton():
             print("\nThis is the current list of cantons.\n")
             print("-----------------------------------------------------------------------------------")
             for i in range(0,len(provinces)):
-                print(f"{bcolors.BOLD}Cantons in {provinces[i]["name"]} province:{bcolors.ENDC}")
+                print(f"{bcolors.BOLD}Cantons in {provinces[i]['name']} province:{bcolors.ENDC}")
                 print("-----------------------------------------------------------------------------------")
                 for x in range(0,len(provinces[i]["cantons"])):
                     print(provinces[i]["cantons"][x])
@@ -478,7 +478,7 @@ def generateReportTwo():
     print(f"{bcolors.BOLD}Users by ascending age{bcolors.ENDC}")
     print("-----------------------------------------------------------------------------------")
     for person in arrangedUsers:
-        print(f"Age: {person["age"]}, Name: {person["name"]}, Profile: {person["profile"]}. ")
+        print(f"Age: {person['age']}, Name: {person['name']}, Profile: {person['profile']}. ")
     print("-----------------------------------------------------------------------------------")
 
 # Function that generates the report number three (quantity of women and men)
@@ -534,7 +534,7 @@ def generateReportFour():
                 men += 1
     
     print("\n-----------------------------------------------------------------------------------")
-    print(f"Current quantity of men in {provinces[i]["name"]} province: {men}.")
+    print(f"Current quantity of men in {provinces[i]['name']} province: {men}.")
     print("-----------------------------------------------------------------------------------")
 
 # Function that generates the report number four (quantity of women by canton)
@@ -568,5 +568,5 @@ def generateReportFive():
                 women += 1
         
     print("\n-----------------------------------------------------------------------------------")
-    print(f"Current quantity of women in {provinces[provinceIndex]["cantons"][cantonIndex]} canton: {women}.")
+    print(f"Current quantity of women in {provinces[provinceIndex]['cantons'][cantonIndex]} canton: {women}.")
     print("-----------------------------------------------------------------------------------")

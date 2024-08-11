@@ -1,0 +1,4 @@
+motorcycle,10000,15
+automobile,25000,30
+bus,45000,45
+truck,65000,70

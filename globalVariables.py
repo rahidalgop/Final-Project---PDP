@@ -98,17 +98,19 @@ provinces = [alajuela, heredia, sanJose, puntarenas]
 # Event management
 # ===================================================================================================================
 
-events = []
-
 class Event:
-    def __init__(self, code, citizenName, location, carPlate, status, dateTime, fee):
+    def __init__(self, code, citizenName, location, numberPlate, status, dateTime, fine):
         self.code = code
         self.citizenName = citizenName
         self.location = location
-        self.carPlate = carPlate
+        self.numberPlate = numberPlate
         self.status = status
         self.dateTime = dateTime
-        self.fee = fee
+        self.fine = fine
+
+event01 = Event(12345, "Mark Hoppus", "Alajuela, San Carlos", "AAA-111", "Open", "10/08/2024 18:45", 70000)
+
+events = [event01]
 
 # Vehicle management
 # ===================================================================================================================

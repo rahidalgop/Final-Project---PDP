@@ -2,7 +2,7 @@
 # Libraries
 # ===================================================================================================================
 
-import vehicleCollision, adminFunctions, officerFunctions, judgeFunctions, generalFunctions, re
+import vehicleCollision, adminFunctions, officerFunctions, judgeFunctions, generalFunctions, re, random, os
 from globalVariables import *
 from datetime import datetime, date
 from getpass import getpass
@@ -366,12 +366,15 @@ def crudVehicle():
 # Function that executes a CRUD for events / incidents
 
 def crudEvent():
+
+    global events, vehicles
+
     while True:
         print("\n===================================================================================")
         print(f"{bcolors.BOLD}EVENTS - {bcolors.ENDC}{generalFunctions.printUserInfo()}")
         print("===================================================================================\n")
         print(f"{bcolors.OKCYAN}1. Create new event.")
-        print(f"2. Display of my events.")
+        print(f"2. Display list of my events.")
         print(f"3. Update event.")
         print(f"4. Delete event.")
         print(f"5. Return to main menu.{bcolors.ENDC}")
@@ -380,14 +383,101 @@ def crudEvent():
         option = generalFunctions.validateOption(5)
 
         if option == 1:
-            global events
 
-            pass
+            printCurrentVehicles()
 
+            while True:
+                validPlateNumber = False
+                newEventNumberPlate = input("Introduce the number plate of the vehicle involved in the event / incident: ")
 
+                for i in vehicles:
+                    if newEventNumberPlate == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID and vehicleInEvent(newEventNumberPlate) == False:
+                        validPlateNumber = True
+                        vehicleIndex = vehicles.index(i)
+                        break
+                else:
+                    print(f"\n{bcolors.FAIL}A vehicle with this number plate doesn't exist or is already vinculated to an event.{bcolors.ENDC}\n")
+
+                if validPlateNumber == True:
+                    break
+
+            newEventFine = calculateFine(vehicleIndex)
+            print(f"\n{bcolors.OKCYAN}The fine for the selected vehicle will be equal to {newEventFine} colones.{bcolors.ENDC}\n")
+            
+
+            while True:
+                repeatedCode = True
+                newEventCode = random.randint(10000, 99999)
+
+                for i in events:
+                    if i.code == newEventCode:
+                        repeatedCode = True
+                else:
+                    repeatedCode = False
+
+                if repeatedCode == False:
+                    break
+            
+            adminFunctions.printCurrentProvinces()
+            while True:
+                repeatedProvince = False
+                provinceName = input("Enter the name of the province in which the event ocurred: ")
+                for i in range(0,len(provinces)):
+                    if provinceName == provinces[i]["name"]:
+                        repeatedProvince = True
+                        newEventProvince = provinceName
+                        newUserProvinceIndex = i
+                        break
+
+                if repeatedProvince == True:
+                    break
+                else:
+                    print(f"\n{bcolors.FAIL}A province with this name doesn't exist.{bcolors.ENDC}\n")
+            
+            print("\nThis is the current list of cantons within the selected province.\n")
+            for i in range(0,len(provinces[newUserProvinceIndex]["cantons"])):
+                print(f"{bcolors.OKCYAN}{provinces[newUserProvinceIndex]['cantons'][i]}{bcolors.ENDC}")
+
+            while True:
+                repeatedCanton = False
+                cantonName = input("\nEnter the name of the canton in which the event ocurred: ")
+                for i in range(0,len(provinces[newUserProvinceIndex]["cantons"])):
+                    if cantonName == provinces[newUserProvinceIndex]["cantons"][i]:
+                        repeatedCanton = True
+                        newEventCanton = cantonName
+                if repeatedCanton == True:
+                    break
+                else:
+                    print(f"\n{bcolors.FAIL}A canton with this name doesn't exist.{bcolors.ENDC}\n")
+
+            newEventCitizenName = generalFunctions.currentUserName
+
+            newEventDateTime = datetime.now()
+
+            newEvent = Event(newEventCode, newEventCitizenName, (f"{newEventProvince}, {newEventCanton}"), newEventNumberPlate, "Open", newEventDateTime, newEventFine)
+            
+            events.append(newEvent)
+
+            print(f"\n{bcolors.OKCYAN}New event registered successfully. Code to identify the event: {bcolors.BOLD}{newEventCode}{bcolors.ENDC}{bcolors.ENDC}\n")
 
         elif option == 2:
-            pass
+
+            print(f"\nThis is the current list of your events.\n")
+            print("-----------------------------------------------------------------------------------")
+            print(f"{bcolors.BOLD}Events{bcolors.ENDC}")
+            print("-----------------------------------------------------------------------------------")
+            currentUserVehicles = []
+
+            for i in vehicles:
+                if i["ownerID"] == generalFunctions.currentUserID:
+                    currentUserVehicles.append(i)
+
+            for i in currentUserVehicles:
+                for x in events:
+                    if i["numberPlate"] == x.numberPlate:
+                        print(f"Code: {x.code}, Citizen full name: {x.citizenName}, Location: {x.location}, Involved vehicle: {x.numberPlate}, Status: {x.status}, Date-time: {x.dateTime}, Fine: {x.fine}.")
+            print("-----------------------------------------------------------------------------------")
+
         elif option == 3:
             pass
         elif option == 4:
@@ -406,3 +496,46 @@ def printCurrentVehicles():
         if i["ownerID"] == generalFunctions.currentUserID:
             print(f"{bcolors.OKCYAN}{i['numberPlate']}{bcolors.ENDC}")
     print("")
+
+
+# Function to determine if a vehicle is currently involved in an event
+
+def vehicleInEvent(numberPlate):
+
+    global vehicles, events
+
+    for i in events:
+        if numberPlate == i.numberPlate:
+            return True
+    else:
+        return False
+    
+
+# Function to import fines data from txt file and calculate the fine total
+
+def calculateFine(vehicleIndex):
+    global vehicles
+
+    __location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+    fines = []
+    with open(os.path.join(__location__, "fineTable.txt"), 'r') as f:
+        for i in f:
+            parameters = i.split(",")
+            fine = int(parameters[1]) + (int(parameters[1]) * (int(parameters[2]) / 100))
+            fines.append(fine)
+
+    if vehicles[vehicleIndex]["type"] == "motorcycle":
+        fine = fines[0]
+    elif vehicles[vehicleIndex]["type"] == "automobile":
+        fine = fines[1]
+    elif vehicles[vehicleIndex]["type"] == "bus":
+        fine = fines[2]
+    elif vehicles[vehicleIndex]["type"] == "truck":
+        fine = fines[3]
+
+    if int(vehicles[vehicleIndex]["year"]) <= 2000:
+        fine = fine + (fine * 0.1)
+
+    return fine
