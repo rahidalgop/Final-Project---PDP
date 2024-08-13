@@ -16,7 +16,7 @@ administrator = {
     "gender":"male",
     "age":35,
     "residency":"San José, Moravia",
-    "birthdate":"10/06/1990"
+    "birthdate":"10/06"
 }
 
 isabel = {
@@ -27,7 +27,7 @@ isabel = {
     "gender":"female",
     "age":20,
     "residency":"Alajuela, San Carlos",
-    "birthdate":"10/06/1990"
+    "birthdate":"10/06"
 }
 
 angelica = {
@@ -38,7 +38,7 @@ angelica = {
     "gender":"female",
     "age":20,
     "residency":"Alajuela, San Carlos",
-    "birthdate":"10/06/1990"
+    "birthdate":"10/06"
 }
 
 raul = {
@@ -49,7 +49,7 @@ raul = {
     "gender":"male",
     "age":25,
     "residency":"Alajuela, San Carlos",
-    "birthdate":"10/06/1990"
+    "birthdate":"10/06"
 }
 
 citizen = {
@@ -60,7 +60,7 @@ citizen = {
     "gender":"male",
     "age":32,
     "residency":"Alajuela, San Carlos",
-    "birthdate":"10/06/1990"
+    "birthdate":"10/06"
 }
 
 officer = {
@@ -71,7 +71,7 @@ officer = {
     "gender":"male",
     "age":47,
     "residency":"Puntarenas, Esparza",
-    "birthdate":"10/06/1990"
+    "birthdate":"10/06"
 }
 
 judge = {
@@ -82,7 +82,7 @@ judge = {
     "gender":"male",
     "age":62,
     "residency":"Heredia, Barva",
-    "birthdate":"10/06/1990"
+    "birthdate":"10/06"
 }
 
 users = [administrator, isabel, angelica, raul, citizen, officer, judge]

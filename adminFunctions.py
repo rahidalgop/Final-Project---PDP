@@ -142,8 +142,8 @@ def createNewUser():
         else:
             print(f"\n{bcolors.FAIL}Invalid input.{bcolors.ENDC}\n")
     while True:
-        format = "%d/%m/%Y"
-        newUserBirthdate = input("Introduce user's birthdate (DD/MM/YYYY): ") # Validate birthdate with age?
+        format = "%d/%m"
+        newUserBirthdate = input("Introduce user's birthdate (DD/MM): ")
         try:
             bool(datetime.strptime(newUserBirthdate, format))
             break

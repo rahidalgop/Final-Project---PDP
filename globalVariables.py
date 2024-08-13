@@ -16,7 +16,7 @@ administrator = {
     "gender":"male",
     "age":35,
     "residency":"San José, Moravia",
-    "birthdate":"10/06/1990"
+    "birthdate":"10/06"
 }
 
 users = [administrator]
