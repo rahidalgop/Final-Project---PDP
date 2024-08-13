@@ -176,14 +176,17 @@ def crudVehicle():
 
         elif option == 2:
 
-            print(f"\nThis is the current list of your vehicles.\n")
-            print("-----------------------------------------------------------------------------------")
-            print(f"{bcolors.BOLD}Vehicles{bcolors.ENDC}")
-            print("-----------------------------------------------------------------------------------")
-            for i in vehicles:
-                if i["ownerID"] == generalFunctions.currentUserID:
-                    print(f"Number plate: {i['numberPlate']}, Production year: {i['year']}, Brand: {i['brand']}, Color: {i['color']}, Type: {i['type']}.")
-            print("-----------------------------------------------------------------------------------")
+            if len(vehicles) == 0:
+                print(f"\n{bcolors.FAIL}There are currently no vehicles associated with your user.{bcolors.ENDC}\n")
+            else:
+                print(f"\nThis is the current list of your vehicles.\n")
+                print("-----------------------------------------------------------------------------------")
+                print(f"{bcolors.BOLD}Vehicles{bcolors.ENDC}")
+                print("-----------------------------------------------------------------------------------")
+                for i in vehicles:
+                    if i["ownerID"] == generalFunctions.currentUserID:
+                        print(f"Number plate: {i['numberPlate']}, Production year: {i['year']}, Brand: {i['brand']}, Color: {i['color']}, Type: {i['type']}.")
+                print("-----------------------------------------------------------------------------------")
 
         elif option == 3:
             
@@ -460,8 +463,8 @@ def crudEvent():
 
             newEventCitizenName = generalFunctions.currentUserName
 
-            newEventDateTime = datetime.now()
-
+            newEventDateTime = datetime.strptime(datetime.now().isoformat(' ', 'seconds'), "%Y-%m-%d %H:%M:%S")
+            
             newEvent = Event(newEventCode, newEventCitizenName, (f"{newEventProvince}, {newEventCanton}"), newEventNumberPlate, "open", newEventDateTime, newEventFine, '', '', '', '')
             
             events.append(newEvent)
@@ -482,8 +485,18 @@ def crudEvent():
 
             for i in currentUserVehicles:
                 for x in events:
-                    if i["numberPlate"] == x.numberPlate:
+                    if i["numberPlate"] == x.numberPlate and x.status == "open":
                         print(x.formatIfOpen())
+
+            for i in currentUserVehicles:
+                for x in events:
+                    if i["numberPlate"] == x.numberPlate and x.status == "pending approval":
+                        print(x.formatIfPendingApproval())
+
+            for i in currentUserVehicles:
+                for x in events:
+                    if i["numberPlate"] == x.numberPlate and x.status == "closed":
+                        print(x.formatIfClosed())
             print("-----------------------------------------------------------------------------------")
 
         elif option == 3:
@@ -676,8 +689,8 @@ def calculateFine(vehicleIndex):
     fines = []
     with open(os.path.join(__location__, "fineTable.txt"), 'r') as f:
         for i in f:
-            parameters = i.split(",")
-            fine = int(parameters[1]) + (int(parameters[1]) * (int(parameters[2]) / 100))
+            parameters = i.split(", ")
+            fine = int(parameters[0]) + (int(parameters[0]) * (int(parameters[1]) / 100))
             fines.append(fine)
 
     if vehicles[vehicleIndex]["type"] == "motorcycle":

@@ -19,7 +19,73 @@ administrator = {
     "birthdate":"10/06/1990"
 }
 
-users = [administrator]
+isabel = {
+    "id":"604840803",
+    "name":"Isabel María Martínez Vindas",
+    "password":"123",
+    "profile":"citizen",
+    "gender":"female",
+    "age":20,
+    "residency":"Alajuela, San Carlos",
+    "birthdate":"10/06/1990"
+}
+
+angelica = {
+    "id":"208480382",
+    "name":"Angélica Varela Vargas",
+    "password":"456",
+    "profile":"police officer",
+    "gender":"female",
+    "age":20,
+    "residency":"Alajuela, San Carlos",
+    "birthdate":"10/06/1990"
+}
+
+raul = {
+    "id":"207820653",
+    "name":"José Raúl Hidalgo Pérez",
+    "password":"789",
+    "profile":"judge",
+    "gender":"male",
+    "age":25,
+    "residency":"Alajuela, San Carlos",
+    "birthdate":"10/06/1990"
+}
+
+citizen = {
+    "id":"111111111",
+    "name":"Mark Hoppus",
+    "password":"111",
+    "profile":"citizen",
+    "gender":"male",
+    "age":32,
+    "residency":"Alajuela, San Carlos",
+    "birthdate":"10/06/1990"
+}
+
+officer = {
+    "id":"222222222",
+    "name":"Tom DeLonge",
+    "password":"222",
+    "profile":"police officer",
+    "gender":"male",
+    "age":47,
+    "residency":"Puntarenas, Esparza",
+    "birthdate":"10/06/1990"
+}
+
+judge = {
+    "id":"333333333",
+    "name":"Travis Barker",
+    "password":"333",
+    "profile":"judge",
+    "gender":"male",
+    "age":62,
+    "residency":"Heredia, Barva",
+    "birthdate":"10/06/1990"
+}
+
+users = [administrator, isabel, angelica, raul, citizen, officer, judge]
 
 # Current user logged in the system info
 
@@ -88,15 +154,73 @@ class Event:
     def formatToFile(self):
         return f"{self.code}, {self.citizenName}, {self.location}, {self.numberPlate}, {self.status}, {self.dateTime}, {self.fine}, {self.penaltyFeeNumber}, {self.officerName}, {self.registerNumber}, {self.judgeName}\n"
 
-events = []
+event01 = Event(12345, "Mark Hoppus", "Alajuela, San Carlos", "AAA-111", "open", datetime.strptime("2024-08-10 07:30:15", "%Y-%m-%d %H:%M:%S"), 32500.0, '', '', '', '')
+event02 = Event(67890, "Mark Hoppus", "Heredia, Barva", "BBB-222", "pending approval", datetime.strptime("2024-08-10 18:45:22", "%Y-%m-%d %H:%M:%S"), 110500.0, 123, "Tom DeLonge", '', '')
+event03 = Event(67890, "Mark Hoppus", "Heredia, Belén", "DDD-444", "closed", datetime.strptime("2024-08-10 13:05:02", "%Y-%m-%d %H:%M:%S"), 65250.0, 232, "Tom DeLonge", 456, "Travis Barker")
+event04 = Event(67890, "Mark Hoppus", "San José, Tibás", "EEE-555", "closed", datetime.strptime("2024-08-10 11:11:36", "%Y-%m-%d %H:%M:%S"), 110500.0, 897, "Tom DeLonge", 890, "Travis Barker")
+
+events = [event01, event02, event03, event04]
 
 closedEvents = []
 
 # Vehicle management
 # ===================================================================================================================
 
+vehicle01 = {
+    "ownerID":"111111111",
+    "numberPlate":"AAA-111",
+    "year":"2015",
+    "brand":"Toyota",
+    "color":"white",
+    "type":"automobile"
+}
 
-vehicles = []
+vehicle02 = {
+    "ownerID":"111111111",
+    "numberPlate":"BBB-222",
+    "year":"2018",
+    "brand":"Honda",
+    "color":"red",
+    "type":"truck"
+}
+
+vehicle03 = {
+    "ownerID":"604840803",
+    "numberPlate":"QWE-123",
+    "year":"1980",
+    "brand":"BMW",
+    "color":"blue",
+    "type":"truck"
+}
+
+vehicle04 = {
+    "ownerID":"111111111",
+    "numberPlate":"CCC-333",
+    "year":"1997",
+    "brand":"Kia",
+    "color":"yellow",
+    "type":"motorcycle"
+}
+
+vehicle05 = {
+    "ownerID":"111111111",
+    "numberPlate":"DDD-444",
+    "year":"2001",
+    "brand":"Nissan",
+    "color":"white",
+    "type":"bus"
+}
+
+vehicle06 = {
+    "ownerID":"111111111",
+    "numberPlate":"EEE-555",
+    "year":"2020",
+    "brand":"Ford",
+    "color":"gray",
+    "type":"truck"
+}
+
+vehicles = [vehicle01, vehicle02, vehicle03, vehicle04, vehicle05, vehicle06]
 
 vehicleBrands = ["Toyota", "Ford", "Volkswagen", "Nissan", "BMW", "Chevrolet", "Honda", "Hyundai", "Kia", "Other"]
 vehicleColors = ["white", "gray", "black", "blue", "silver", "red", "green", "yellow", "orange", "other"]

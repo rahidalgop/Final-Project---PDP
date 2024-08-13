@@ -2,7 +2,7 @@
 # Libraries
 # ===================================================================================================================
 
-import generalFunctions
+import generalFunctions, os, judgeFunctions
 from globalVariables import *
 from datetime import datetime
 from getpass import getpass
@@ -414,9 +414,9 @@ def reportsMenu():
         print(f"5. Quantity of women by canton.")
         print(f"6. Vehicles by type.")
         print(f"7. Pending approval events with a fine higher than 45 000 colones.")
-        print(f"8. Completed events.")
+        print(f"8. Closed events.")
         print(f"9. Open events by hour.")
-        print(f"10. Province with the highest and lowest number of incidents.")
+        print(f"10. Province with the highest and lowest number of events.")
         print(f"11. Return to main menu.{bcolors.ENDC}")
         print("\n===================================================================================\n")
         
@@ -433,15 +433,15 @@ def reportsMenu():
         elif option == 5:
             generateReportFive()
         elif option == 6:
-            pass
+            generateReportSix()
         elif option == 7:
-            pass
+            generateReportSeven()
         elif option == 8:
-            pass
+            generateReportEight()
         elif option == 9:
-            pass
+            generateReportNine()
         elif option == 10:
-            pass
+            generateReportTen()
         elif option == 11:
             break
 
@@ -460,7 +460,7 @@ def generateReportOne():
     cantonsAlphabeticOrder = sorted(cantonsAlphabeticOrder)
 
     print("\n-----------------------------------------------------------------------------------")
-    print(f"{bcolors.BOLD}List of cantons in alphabetical order{bcolors.ENDC}")
+    print(f"{bcolors.BOLD}Cantons in alphabetical order{bcolors.ENDC}")
     print("-----------------------------------------------------------------------------------")
     for i in cantonsAlphabeticOrder:
         print(i)
@@ -537,7 +537,7 @@ def generateReportFour():
     print(f"Current quantity of men in {provinces[i]['name']} province: {men}.")
     print("-----------------------------------------------------------------------------------")
 
-# Function that generates the report number four (quantity of women by canton)
+# Function that generates the report number five (quantity of women by canton)
 
 def generateReportFive():
 
@@ -570,3 +570,164 @@ def generateReportFive():
     print("\n-----------------------------------------------------------------------------------")
     print(f"Current quantity of women in {provinces[provinceIndex]['cantons'][cantonIndex]} canton: {women}.")
     print("-----------------------------------------------------------------------------------")
+
+# Function that generates the report number six (vehicles by type)
+
+def generateReportSix():
+
+    global vehicles
+
+    print("\n-----------------------------------------------------------------------------------")
+    print(f"{bcolors.BOLD}Vehicles by type{bcolors.ENDC}")
+    print("-----------------------------------------------------------------------------------")
+    print(f"Current list of 'motorcycle' type vehicles:")
+
+    for i in vehicles:
+        if i["type"] == "motorcycle":
+            print(f"Number plate: {i['numberPlate']}, Brand: {i['brand']}.")
+    print("")
+
+    print(f"Current list of 'automobile' type vehicles:")
+
+    for i in vehicles:
+        if i["type"] == "automobile":
+            print(f"Number plate: {i['numberPlate']}, Brand: {i['brand']}.")
+    print("")
+
+    print(f"Current list of 'bus' type vehicles:")
+
+    for i in vehicles:
+        if i["type"] == "bus":
+            print(f"Number plate: {i['numberPlate']}, Brand: {i['brand']}.")
+    print("")
+
+    print(f"Current list of 'truck' type vehicles:")
+
+    for i in vehicles:
+        if i["type"] == "truck":
+            print(f"Number plate: {i['numberPlate']}, Brand: {i['brand']}.")
+
+    print("-----------------------------------------------------------------------------------")
+
+
+# Function that generates the report number seven (pending approval events with a fine higher than 45 000 colones)
+
+def generateReportSeven():
+    
+    global events
+
+    print("\n-----------------------------------------------------------------------------------")
+    print(f"{bcolors.BOLD}Pending approval events with a fine higher than 45 000 colones{bcolors.ENDC}")
+    print("-----------------------------------------------------------------------------------")
+
+    for i in events:
+        if i.fine >= 45000 and i.status == "pending approval":
+            print(f"Code: {i.code}, Police officer name: {i.officerName}, Fine: {i.fine}.")
+
+    print("-----------------------------------------------------------------------------------")
+
+# Function that generates the report number eight (closed events)
+
+def generateReportEight():
+    
+    global events, closedEvents
+
+    judgeFunctions.writeClosedEventsOnFile()
+
+    print(f"\n{bcolors.OKCYAN}Closed events list retrieved from 'closedEvents.txt' file.{bcolors.ENDC}\n")
+
+    print("\n-----------------------------------------------------------------------------------")
+    print(f"{bcolors.BOLD}Closed events{bcolors.ENDC}")
+    print("-----------------------------------------------------------------------------------")
+
+    __location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+    closedEvents = []
+
+    with open(os.path.join(__location__, "closedEvents.txt"), 'r') as f:
+        for i in f:
+            parameters = i.split(", ")
+            closedEvent = Event(int(parameters[0]), parameters[1], (f"{parameters[2]}, {parameters[3]}"), parameters[4], parameters[5], datetime.strptime(parameters[6], "%Y-%m-%d %H:%M:%S"), float(parameters[7]), int(parameters[8]), parameters[9], int(parameters[10]), parameters[11])
+            closedEvents.append(closedEvent)
+
+        for i in closedEvents:
+            print(f"Citizen name: {i.citizenName}, Penalty fee number: {i.penaltyFeeNumber}, Location: {i.location}, Status: {i.status.capitalize()}, Date-time: {i.dateTime}.")
+
+    print("-----------------------------------------------------------------------------------")
+
+# Function that generates the report number nine (open events by hour)
+
+def generateReportNine():
+    
+    global events
+
+    while True:
+        format = "%H:%M:%S"
+        limitTime = input("Introduce the limit time for the open events (hours:minutes:seconds) --> (00:00:00): ")
+        try:
+            bool(datetime.strptime(limitTime, format))
+            break
+        except:
+            print(f"\n{bcolors.FAIL}Invalid input.{bcolors.ENDC}\n")
+
+    limitTime = datetime.strptime(limitTime, format)        
+        
+
+    print("\n-----------------------------------------------------------------------------------")
+    print(f"{bcolors.BOLD}Open events by hour{bcolors.ENDC}")
+    print("-----------------------------------------------------------------------------------")
+
+    for i in events:
+        if i.status == "open" and (i.dateTime.time() < limitTime.time()):
+            print(i.formatIfOpen())
+
+
+    print("-----------------------------------------------------------------------------------")
+
+# Function that generates the report number ten (province with the highest and lowest number of events)
+
+def generateReportTen():
+    
+    global events, provinces
+
+    highest = {
+        "name":"",
+        "number":0
+    }
+
+    lowest = {
+        "name":"",
+        "number":999999999999999
+    }
+
+    for i in provinces:
+
+        eventsQuantity = 0
+
+        for x in events:
+            divideLocation = (x.location).split(",")
+            if divideLocation[0] == i["name"]:
+                eventsQuantity += 1
+
+
+        if eventsQuantity > highest["number"]:
+            highest["number"] = eventsQuantity
+            highest["name"] = i["name"]
+
+        if eventsQuantity < lowest["number"]:
+            lowest["number"] = eventsQuantity
+            lowest["name"] = i["name"]
+
+    print("\n-----------------------------------------------------------------------------------")
+    print(f"{bcolors.BOLD}Province with the highest and lowest number of events{bcolors.ENDC}")
+    print("-----------------------------------------------------------------------------------")
+
+    print(f"Highest events quantity province: {highest['name']}, Events quantity: {highest['number']}.")
+    print(f"Lowest events quantity province: {lowest['name']}, Events quantity: {lowest['number']}.")
+
+    print("-----------------------------------------------------------------------------------")
+    
+
+    
+
