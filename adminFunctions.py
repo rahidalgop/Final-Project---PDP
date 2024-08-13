@@ -693,7 +693,7 @@ def generateReportTen():
 
     highest = {
         "name":"",
-        "number":0
+        "number":-1
     }
 
     lowest = {

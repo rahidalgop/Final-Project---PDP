@@ -189,185 +189,209 @@ def crudVehicle():
                 print("-----------------------------------------------------------------------------------")
 
         elif option == 3:
+
+            ableToModify = False
+
+            for i in vehicles:
+                if i["ownerID"] == generalFunctions.currentUser:
+                    ableToModify = True
+
+            if ableToModify == True:
             
-            printCurrentVehicles()
+                printCurrentVehicles()
 
-            while True:
-                validPlateNumber = False
-                vehicleToModify = input("Introduce the number plate of the vehicle you want to modify: ")
+                while True:
+                    validPlateNumber = False
+                    vehicleToModify = input("Introduce the number plate of the vehicle you want to modify: ")
 
-                for i in vehicles:
-                    if vehicleToModify == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID:
-                        validPlateNumber = True
-                        vehicleIndex = vehicles.index(i)
-                        break
-                else:
-                    print(f"\n{bcolors.FAIL}A vehicle with this number plate doesn't exist.{bcolors.ENDC}\n")
+                    for i in vehicles:
+                        if vehicleToModify == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID:
+                            validPlateNumber = True
+                            vehicleIndex = vehicles.index(i)
+                            break
+                    else:
+                        print(f"\n{bcolors.FAIL}A vehicle with this number plate doesn't exist.{bcolors.ENDC}\n")
 
-                if validPlateNumber == True:
-                    print("\nSelect a feature to modify.")
-                    print(f"\n{bcolors.OKCYAN}1. Number plate.")
-                    print(f"2. Production year.")
-                    print(f"3. Brand.")
-                    print(f"4. Color.")
-                    print(f"5. Type.{bcolors.ENDC}\n")
+                    if validPlateNumber == True:
+                        print("\nSelect a feature to modify.")
+                        print(f"\n{bcolors.OKCYAN}1. Number plate.")
+                        print(f"2. Production year.")
+                        print(f"3. Brand.")
+                        print(f"4. Color.")
+                        print(f"5. Type.{bcolors.ENDC}\n")
 
-                    modifyOption = generalFunctions.validateOption(5)
+                        modifyOption = generalFunctions.validateOption(5)
 
-                    if modifyOption == 1:
-                        while True:
-                            validPlateNumber = False
-                            newNumberPlate = input("Introduce the vehicle number plate (XXX-000): ")
-                            
-                            numberPlateFormat = re.compile('[A-Z]{3}-[0-9]{3}')
-                            if numberPlateFormat.match(newNumberPlate) is not None:
-                                for i in vehicles:
-                                    if i["numberPlate"] == newNumberPlate:
-                                        print(f"{bcolors.FAIL}\nA vehicle with this plate number is already registered in the system.{bcolors.ENDC}\n")
-                                        break
+                        if modifyOption == 1:
+                            while True:
+                                validPlateNumber = False
+                                newNumberPlate = input("Introduce the vehicle number plate (XXX-000): ")
+                                
+                                numberPlateFormat = re.compile('[A-Z]{3}-[0-9]{3}')
+                                if numberPlateFormat.match(newNumberPlate) is not None:
+                                    for i in vehicles:
+                                        if i["numberPlate"] == newNumberPlate:
+                                            print(f"{bcolors.FAIL}\nA vehicle with this plate number is already registered in the system.{bcolors.ENDC}\n")
+                                            break
+                                    else:
+                                        validPlateNumber = True
                                 else:
-                                    validPlateNumber = True
-                            else:
-                                print(f"{bcolors.FAIL}\nInvalid input.{bcolors.ENDC}\n")
-                            
-                            if validPlateNumber == True:
-                                vehicles[vehicleIndex]["numberPlate"] = newNumberPlate
-                                print(f"\n{bcolors.OKCYAN}Vehicle number plate has been updated successfully.{bcolors.ENDC}\n")
-                                break
-
-                        break
-
-                    elif modifyOption == 2:
-                        while True:
-                            currentDate = date.today()
-
-                            newVehicleYear = input("Introduce the new vehicle production year: ")
-                            try:
-                                newVehicleYear = int(newVehicleYear)
-                                if newVehicleYear >= 1886 and newVehicleYear <= currentDate.year and newVehicleYear % 1 == 0:
-                                    vehicles[vehicleIndex]["year"] = newVehicleYear
-                                    print(f"\n{bcolors.OKCYAN}Vehicle production year has been updated successfully.{bcolors.ENDC}\n")
+                                    print(f"{bcolors.FAIL}\nInvalid input.{bcolors.ENDC}\n")
+                                
+                                if validPlateNumber == True:
+                                    vehicles[vehicleIndex]["numberPlate"] = newNumberPlate
+                                    print(f"\n{bcolors.OKCYAN}Vehicle number plate has been updated successfully.{bcolors.ENDC}\n")
                                     break
-                                else:
+
+                            break
+
+                        elif modifyOption == 2:
+                            while True:
+                                currentDate = date.today()
+
+                                newVehicleYear = input("Introduce the new vehicle production year: ")
+                                try:
+                                    newVehicleYear = int(newVehicleYear)
+                                    if newVehicleYear >= 1886 and newVehicleYear <= currentDate.year and newVehicleYear % 1 == 0:
+                                        vehicles[vehicleIndex]["year"] = newVehicleYear
+                                        print(f"\n{bcolors.OKCYAN}Vehicle production year has been updated successfully.{bcolors.ENDC}\n")
+                                        break
+                                    else:
+                                        print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
+                                except ValueError:
                                     print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
-                            except ValueError:
-                                print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
 
-                        break
+                            break
+                            
+                        elif modifyOption == 3:
+                            print("\nSelect a new brand for the vehicle.\n")
+
+                            for i in range(0, len(vehicleBrands)):
+                                print(f"{bcolors.OKCYAN}{i + 1}. {vehicleBrands[i]}.{bcolors.ENDC}")
+                            print(" ")
+
+                            option = generalFunctions.validateOption(10)
+
+                            if option == 1:
+                                newVehicleBrand = "Toyota"
+                            elif option == 2:
+                                newVehicleBrand = "Ford"
+                            elif option == 3:
+                                newVehicleBrand = "Volkswagen"
+                            elif option == 4:
+                                newVehicleBrand = "Nissan"
+                            elif option == 5:
+                                newVehicleBrand = "BMW"
+                            elif option == 6:
+                                newVehicleBrand = "Chevrolet"
+                            elif option == 7:
+                                newVehicleBrand = "Honda"
+                            elif option == 8:
+                                newVehicleBrand = "Hyundai"
+                            elif option == 9:
+                                newVehicleBrand = "Kia"
+                            elif option == 10:
+                                newVehicleBrand = "other"
+
+                            vehicles[vehicleIndex]["brand"] = newVehicleBrand
+                            print(f"\n{bcolors.OKCYAN}Vehicle brand has been updated successfully.{bcolors.ENDC}\n")
+
+                            break
+
+                        elif modifyOption == 4:
+                            print("\nSelect a new color for the vehicle.\n")
+
+                            for i in range(0, len(vehicleColors)):
+                                print(f"{bcolors.OKCYAN}{i + 1}. {vehicleColors[i].capitalize()}.{bcolors.ENDC}")
+                            print(" ")
+
+                            option = generalFunctions.validateOption(10)
+
+                            if option == 1:
+                                newVehicleColor = "white"
+                            elif option == 2:
+                                newVehicleColor = "gray"
+                            elif option == 3:
+                                newVehicleColor = "black"
+                            elif option == 4:
+                                newVehicleColor = "blue"
+                            elif option == 5:
+                                newVehicleColor = "silver"
+                            elif option == 6:
+                                newVehicleColor = "red"
+                            elif option == 7:
+                                newVehicleColor = "green"
+                            elif option == 8:
+                                newVehicleColor = "yellow"
+                            elif option == 9:
+                                newVehicleColor = "orange"
+                            elif option == 10:
+                                newVehicleColor = "other"
+                            
+                            vehicles[vehicleIndex]["color"] = newVehicleColor
+                            print(f"\n{bcolors.OKCYAN}Vehicle color has been updated successfully.{bcolors.ENDC}\n")
+
+                            break
                         
-                    elif modifyOption == 3:
-                        print("\nSelect a new brand for the vehicle.\n")
+                        elif modifyOption == 5:
+                            print("\nSelect a type for the vehicle.")
+                            print(f"\n{bcolors.OKCYAN}1. Motorcycle.")
+                            print(f"2. Automobile.")
+                            print(f"3. Bus.")
+                            print(f"4. Truck.{bcolors.ENDC}\n")
 
-                        for i in range(0, len(vehicleBrands)):
-                            print(f"{bcolors.OKCYAN}{i + 1}. {vehicleBrands[i]}.{bcolors.ENDC}")
-                        print(" ")
+                            option = generalFunctions.validateOption(4)
 
-                        option = generalFunctions.validateOption(10)
+                            if option == 1:
+                                newVehicleType = "motorcycle"
+                            elif option == 2:
+                                newVehicleType = "automobile"
+                            elif option == 3:
+                                newVehicleType = "bus"
+                            elif option == 4:
+                                newVehicleType = "truck"
 
-                        if option == 1:
-                            newVehicleBrand = "Toyota"
-                        elif option == 2:
-                            newVehicleBrand = "Ford"
-                        elif option == 3:
-                            newVehicleBrand = "Volkswagen"
-                        elif option == 4:
-                            newVehicleBrand = "Nissan"
-                        elif option == 5:
-                            newVehicleBrand = "BMW"
-                        elif option == 6:
-                            newVehicleBrand = "Chevrolet"
-                        elif option == 7:
-                            newVehicleBrand = "Honda"
-                        elif option == 8:
-                            newVehicleBrand = "Hyundai"
-                        elif option == 9:
-                            newVehicleBrand = "Kia"
-                        elif option == 10:
-                            newVehicleBrand = "other"
+                            vehicles[vehicleIndex]["type"] = newVehicleType
+                            print(f"\n{bcolors.OKCYAN}Vehicle type has been updated successfully.{bcolors.ENDC}\n")
 
-                        vehicles[vehicleIndex]["brand"] = newVehicleBrand
-                        print(f"\n{bcolors.OKCYAN}Vehicle brand has been updated successfully.{bcolors.ENDC}\n")
+                            break
 
-                        break
+            else:
+                print(f"\n{bcolors.FAIL}There are no vehicles associated with your user.{bcolors.ENDC}\n")
 
-                    elif modifyOption == 4:
-                        print("\nSelect a new color for the vehicle.\n")
-
-                        for i in range(0, len(vehicleColors)):
-                            print(f"{bcolors.OKCYAN}{i + 1}. {vehicleColors[i].capitalize()}.{bcolors.ENDC}")
-                        print(" ")
-
-                        option = generalFunctions.validateOption(10)
-
-                        if option == 1:
-                            newVehicleColor = "white"
-                        elif option == 2:
-                            newVehicleColor = "gray"
-                        elif option == 3:
-                            newVehicleColor = "black"
-                        elif option == 4:
-                            newVehicleColor = "blue"
-                        elif option == 5:
-                            newVehicleColor = "silver"
-                        elif option == 6:
-                            newVehicleColor = "red"
-                        elif option == 7:
-                            newVehicleColor = "green"
-                        elif option == 8:
-                            newVehicleColor = "yellow"
-                        elif option == 9:
-                            newVehicleColor = "orange"
-                        elif option == 10:
-                            newVehicleColor = "other"
-                        
-                        vehicles[vehicleIndex]["color"] = newVehicleColor
-                        print(f"\n{bcolors.OKCYAN}Vehicle color has been updated successfully.{bcolors.ENDC}\n")
-
-                        break
-                    
-                    elif modifyOption == 5:
-                        print("\nSelect a type for the vehicle.")
-                        print(f"\n{bcolors.OKCYAN}1. Motorcycle.")
-                        print(f"2. Automobile.")
-                        print(f"3. Bus.")
-                        print(f"4. Truck.{bcolors.ENDC}\n")
-
-                        option = generalFunctions.validateOption(4)
-
-                        if option == 1:
-                            newVehicleType = "motorcycle"
-                        elif option == 2:
-                            newVehicleType = "automobile"
-                        elif option == 3:
-                            newVehicleType = "bus"
-                        elif option == 4:
-                            newVehicleType = "truck"
-
-                        vehicles[vehicleIndex]["type"] = newVehicleType
-                        print(f"\n{bcolors.OKCYAN}Vehicle type has been updated successfully.{bcolors.ENDC}\n")
-
-                        break
 
         elif option == 4:
 
-            printCurrentVehicles()
+            ableToDelete = False
 
-            while True:
-                validPlateNumber = False
-                vehicleToDelete = input("Introduce the number plate of the vehicle you want to delete: ")
+            for i in vehicles:
+                if i["ownerID"] == generalFunctions.currentUser:
+                    ableToDelete = True
 
-                for i in vehicles:
-                    if vehicleToDelete == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID:
-                        validPlateNumber = True
-                        vehicleIndex = vehicles.index(i)
+            if ableToDelete == True:
+
+                printCurrentVehicles()
+
+                while True:
+                    validPlateNumber = False
+                    vehicleToDelete = input("Introduce the number plate of the vehicle you want to delete: ")
+
+                    for i in vehicles:
+                        if vehicleToDelete == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID:
+                            validPlateNumber = True
+                            vehicleIndex = vehicles.index(i)
+                            break
+                    else:
+                        print(f"\n{bcolors.FAIL}A vehicle with this number plate doesn't exist.{bcolors.ENDC}\n")
+
+                    if validPlateNumber == True:
+                        del vehicles[vehicleIndex]
+                        print(f"\n{bcolors.OKCYAN}Vehicle deleted successfully.{bcolors.ENDC}\n")
                         break
-                else:
-                    print(f"\n{bcolors.FAIL}A vehicle with this number plate doesn't exist.{bcolors.ENDC}\n")
+            
+            else:
+                print(f"\n{bcolors.FAIL}There are no vehicles associated with your user.{bcolors.ENDC}\n")
 
-                if validPlateNumber == True:
-                    del vehicles[vehicleIndex]
-                    print(f"\n{bcolors.OKCYAN}Vehicle deleted successfully.{bcolors.ENDC}\n")
-                    break
             
         elif option == 5:
             break
@@ -395,81 +419,93 @@ def crudEvent():
 
         if option == 1:
 
-            printCurrentVehicles()
+            ableToAddEvent = False
 
-            while True:
-                validPlateNumber = False
-                newEventNumberPlate = input("Introduce the number plate of the vehicle involved in the event / incident: ")
+            for i in vehicles:
+                if i["ownerID"] == generalFunctions.currentUser:
+                    ableToAddEvent = True
 
-                for i in vehicles:
-                    if newEventNumberPlate == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID and vehicleInEvent(newEventNumberPlate) == False:
-                        validPlateNumber = True
-                        vehicleIndex = vehicles.index(i)
-                        break
-                else:
-                    print(f"\n{bcolors.FAIL}A vehicle with this number plate doesn't exist or is already vinculated to an event.{bcolors.ENDC}\n")
+            if ableToAddEvent == True:
+                
+                printCurrentVehicles()
 
-                if validPlateNumber == True:
-                    break
+                while True:
+                    validPlateNumber = False
+                    newEventNumberPlate = input("Introduce the number plate of the vehicle involved in the event / incident: ")
 
-            newEventFine = calculateFine(vehicleIndex)
-            print(f"\n{bcolors.OKCYAN}The fine for the selected vehicle will be equal to {newEventFine} colones.{bcolors.ENDC}\n")
-            
+                    for i in vehicles:
+                        if newEventNumberPlate == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID and vehicleInEvent(newEventNumberPlate) == False:
+                            validPlateNumber = True
+                            vehicleIndex = vehicles.index(i)
+                            break
+                    else:
+                        print(f"\n{bcolors.FAIL}A vehicle with this number plate doesn't exist or is already vinculated to an event.{bcolors.ENDC}\n")
 
-            while True:
-                repeatedCode = True
-                newEventCode = random.randint(10000, 99999)
-
-                for i in events:
-                    if i.code == newEventCode:
-                        repeatedCode = True
-                else:
-                    repeatedCode = False
-
-                if repeatedCode == False:
-                    break
-            
-            adminFunctions.printCurrentProvinces()
-            while True:
-                repeatedProvince = False
-                provinceName = input("Enter the name of the province in which the event ocurred: ")
-                for i in range(0,len(provinces)):
-                    if provinceName == provinces[i]["name"]:
-                        repeatedProvince = True
-                        newEventProvince = provinceName
-                        newUserProvinceIndex = i
+                    if validPlateNumber == True:
                         break
 
-                if repeatedProvince == True:
-                    break
-                else:
-                    print(f"\n{bcolors.FAIL}A province with this name doesn't exist.{bcolors.ENDC}\n")
-            
-            print("\nThis is the current list of cantons within the selected province.\n")
-            for i in range(0,len(provinces[newUserProvinceIndex]["cantons"])):
-                print(f"{bcolors.OKCYAN}{provinces[newUserProvinceIndex]['cantons'][i]}{bcolors.ENDC}")
+                newEventFine = calculateFine(vehicleIndex)
+                print(f"\n{bcolors.OKCYAN}The fine for the selected vehicle will be equal to {newEventFine} colones.{bcolors.ENDC}\n")
+                
 
-            while True:
-                repeatedCanton = False
-                cantonName = input("\nEnter the name of the canton in which the event ocurred: ")
+                while True:
+                    repeatedCode = True
+                    newEventCode = random.randint(10000, 99999)
+
+                    for i in events:
+                        if i.code == newEventCode:
+                            repeatedCode = True
+                    else:
+                        repeatedCode = False
+
+                    if repeatedCode == False:
+                        break
+                
+                adminFunctions.printCurrentProvinces()
+                while True:
+                    repeatedProvince = False
+                    provinceName = input("Enter the name of the province in which the event ocurred: ")
+                    for i in range(0,len(provinces)):
+                        if provinceName == provinces[i]["name"]:
+                            repeatedProvince = True
+                            newEventProvince = provinceName
+                            newUserProvinceIndex = i
+                            break
+
+                    if repeatedProvince == True:
+                        break
+                    else:
+                        print(f"\n{bcolors.FAIL}A province with this name doesn't exist.{bcolors.ENDC}\n")
+                
+                print("\nThis is the current list of cantons within the selected province.\n")
                 for i in range(0,len(provinces[newUserProvinceIndex]["cantons"])):
-                    if cantonName == provinces[newUserProvinceIndex]["cantons"][i]:
-                        repeatedCanton = True
-                        newEventCanton = cantonName
-                if repeatedCanton == True:
-                    break
-                else:
-                    print(f"\n{bcolors.FAIL}A canton with this name doesn't exist.{bcolors.ENDC}\n")
+                    print(f"{bcolors.OKCYAN}{provinces[newUserProvinceIndex]['cantons'][i]}{bcolors.ENDC}")
 
-            newEventCitizenName = generalFunctions.currentUserName
+                while True:
+                    repeatedCanton = False
+                    cantonName = input("\nEnter the name of the canton in which the event ocurred: ")
+                    for i in range(0,len(provinces[newUserProvinceIndex]["cantons"])):
+                        if cantonName == provinces[newUserProvinceIndex]["cantons"][i]:
+                            repeatedCanton = True
+                            newEventCanton = cantonName
+                    if repeatedCanton == True:
+                        break
+                    else:
+                        print(f"\n{bcolors.FAIL}A canton with this name doesn't exist.{bcolors.ENDC}\n")
 
-            newEventDateTime = datetime.strptime(datetime.now().isoformat(' ', 'seconds'), "%Y-%m-%d %H:%M:%S")
-            
-            newEvent = Event(newEventCode, newEventCitizenName, (f"{newEventProvince}, {newEventCanton}"), newEventNumberPlate, "open", newEventDateTime, newEventFine, '', '', '', '')
-            
-            events.append(newEvent)
+                newEventCitizenName = generalFunctions.currentUserName
 
-            print(f"\n{bcolors.OKCYAN}New event registered successfully. Code to identify the event: {bcolors.BOLD}{newEventCode}{bcolors.ENDC}.{bcolors.ENDC}\n")
+                newEventDateTime = datetime.strptime(datetime.now().isoformat(' ', 'seconds'), "%Y-%m-%d %H:%M:%S")
+                
+                newEvent = Event(newEventCode, newEventCitizenName, (f"{newEventProvince}, {newEventCanton}"), newEventNumberPlate, "open", newEventDateTime, newEventFine, '', '', '', '')
+                
+                events.append(newEvent)
+
+                print(f"\n{bcolors.OKCYAN}New event registered successfully. Code to identify the event: {bcolors.BOLD}{newEventCode}{bcolors.ENDC}.{bcolors.ENDC}\n")
+
+            else:
+                print(f"\n{bcolors.FAIL}In order to create a new event, a vehicle must be associated with your user.{bcolors.ENDC}\n")
+                
 
         elif option == 2:
 
@@ -500,127 +536,151 @@ def crudEvent():
             print("-----------------------------------------------------------------------------------")
 
         elif option == 3:
-            printCurrentEvents()
 
-            while True:
+            ableToModify = False
 
-                validEventCode = False
-                validInput = True
+            for i in events:
+                if i.citizenName == generalFunctions.currentUserName:
+                    ableToModify = True
 
-                try:
-                    eventToModify = input("Introduce the code number of the event you want to modify: ")
-                    eventToModify = int(eventToModify)
-                    for i in currentUserVehicles:
-                        for x in events:
-                            if i["numberPlate"] == x.numberPlate and x.code == eventToModify:
-                                validEventCode = True
-                                eventIndex = events.index(x)
+            if ableToModify == True:
 
-                except ValueError:
-                    print(f"\n{bcolors.FAIL}Invalid input.{bcolors.ENDC}\n")
-                    validInput = False
+                printCurrentEvents()
 
-                if validEventCode == True:
-                    print("\nSelect a feature to modify.")
-                    print(f"\n{bcolors.OKCYAN}1. Location.")
-                    print(f"2. Involved vehicle.{bcolors.ENDC}\n")
+                while True:
 
-                    modifyOption = generalFunctions.validateOption(2)
+                    validEventCode = False
+                    validInput = True
 
-                    if modifyOption == 1:
-                        adminFunctions.printCurrentProvinces()
-                        while True:
-                            repeatedProvince = False
-                            provinceName = input("Enter the name of the province in which the event ocurred: ")
-                            for i in range(0,len(provinces)):
-                                if provinceName == provinces[i]["name"]:
-                                    repeatedProvince = True
-                                    modifyEventProvince = provinceName
-                                    newUserProvinceIndex = i
+                    try:
+                        eventToModify = input("Introduce the code number of the event you want to modify: ")
+                        eventToModify = int(eventToModify)
+                        for i in currentUserVehicles:
+                            for x in events:
+                                if i["numberPlate"] == x.numberPlate and x.code == eventToModify:
+                                    validEventCode = True
+                                    eventIndex = events.index(x)
+
+                    except ValueError:
+                        print(f"\n{bcolors.FAIL}Invalid input.{bcolors.ENDC}\n")
+                        validInput = False
+
+                    if validEventCode == True:
+                        print("\nSelect a feature to modify.")
+                        print(f"\n{bcolors.OKCYAN}1. Location.")
+                        print(f"2. Involved vehicle.{bcolors.ENDC}\n")
+
+                        modifyOption = generalFunctions.validateOption(2)
+
+                        if modifyOption == 1:
+                            adminFunctions.printCurrentProvinces()
+                            while True:
+                                repeatedProvince = False
+                                provinceName = input("Enter the name of the province in which the event ocurred: ")
+                                for i in range(0,len(provinces)):
+                                    if provinceName == provinces[i]["name"]:
+                                        repeatedProvince = True
+                                        modifyEventProvince = provinceName
+                                        newUserProvinceIndex = i
+                                        break
+
+                                if repeatedProvince == True:
                                     break
-
-                            if repeatedProvince == True:
-                                break
-                            else:
-                                print(f"\n{bcolors.FAIL}A province with this name doesn't exist.{bcolors.ENDC}\n")
-                        
-                        print("\nThis is the current list of cantons within the selected province.\n")
-                        for i in range(0,len(provinces[newUserProvinceIndex]["cantons"])):
-                            print(f"{bcolors.OKCYAN}{provinces[newUserProvinceIndex]['cantons'][i]}{bcolors.ENDC}")
-
-                        while True:
-                            repeatedCanton = False
-                            cantonName = input("\nEnter the name of the canton in which the event ocurred: ")
+                                else:
+                                    print(f"\n{bcolors.FAIL}A province with this name doesn't exist.{bcolors.ENDC}\n")
+                            
+                            print("\nThis is the current list of cantons within the selected province.\n")
                             for i in range(0,len(provinces[newUserProvinceIndex]["cantons"])):
-                                if cantonName == provinces[newUserProvinceIndex]["cantons"][i]:
-                                    repeatedCanton = True
-                                    modifyEventCanton = cantonName
-                            if repeatedCanton == True:
-                                events[eventIndex].location = f"{modifyEventProvince}, {modifyEventCanton}"
-                                print(f"\n{bcolors.OKCYAN}Event location updated succesfully.{bcolors.ENDC}\n")
-                                break
-                            else:
-                                print(f"\n{bcolors.FAIL}A canton with this name doesn't exist.{bcolors.ENDC}\n")
-                        
-                        break
+                                print(f"{bcolors.OKCYAN}{provinces[newUserProvinceIndex]['cantons'][i]}{bcolors.ENDC}")
 
-                    elif modifyOption == 2:
-                        printCurrentVehicles()
-
-                        while True:
-                            validPlateNumber = False
-                            modifyEventNumberPlate = input("Introduce the number plate of the vehicle involved in the event / incident: ")
-
-                            for i in vehicles:
-                                if modifyEventNumberPlate == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID and vehicleInEvent(modifyEventNumberPlate) == False:
-                                    validPlateNumber = True
-                                    vehicleIndex = vehicles.index(i)
+                            while True:
+                                repeatedCanton = False
+                                cantonName = input("\nEnter the name of the canton in which the event ocurred: ")
+                                for i in range(0,len(provinces[newUserProvinceIndex]["cantons"])):
+                                    if cantonName == provinces[newUserProvinceIndex]["cantons"][i]:
+                                        repeatedCanton = True
+                                        modifyEventCanton = cantonName
+                                if repeatedCanton == True:
+                                    events[eventIndex].location = f"{modifyEventProvince}, {modifyEventCanton}"
+                                    print(f"\n{bcolors.OKCYAN}Event location updated succesfully.{bcolors.ENDC}\n")
                                     break
-                            else:
-                                print(f"\n{bcolors.FAIL}A vehicle with this number plate doesn't exist or is already vinculated to an event.{bcolors.ENDC}\n")
+                                else:
+                                    print(f"\n{bcolors.FAIL}A canton with this name doesn't exist.{bcolors.ENDC}\n")
+                            
+                            break
 
-                            if validPlateNumber == True:
-                                events[eventIndex].numberPlate = modifyEventNumberPlate
-                                print(f"\n{bcolors.OKCYAN}Vehicle involved in the event updated succesfully.{bcolors.ENDC}\n")
-                                break
-                        break
+                        elif modifyOption == 2:
+                            printCurrentVehicles()
 
-                if validInput == True and validEventCode == False:
-                    print(f"\n{bcolors.FAIL}An event with this code number doesn't exist.{bcolors.ENDC}\n")
+                            while True:
+                                validPlateNumber = False
+                                modifyEventNumberPlate = input("Introduce the number plate of the vehicle involved in the event / incident: ")
+
+                                for i in vehicles:
+                                    if modifyEventNumberPlate == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID and vehicleInEvent(modifyEventNumberPlate) == False:
+                                        validPlateNumber = True
+                                        vehicleIndex = vehicles.index(i)
+                                        break
+                                else:
+                                    print(f"\n{bcolors.FAIL}A vehicle with this number plate doesn't exist or is already vinculated to an event.{bcolors.ENDC}\n")
+
+                                if validPlateNumber == True:
+                                    events[eventIndex].numberPlate = modifyEventNumberPlate
+                                    print(f"\n{bcolors.OKCYAN}Vehicle involved in the event updated succesfully.{bcolors.ENDC}\n")
+                                    break
+                            break
+
+                    if validInput == True and validEventCode == False:
+                        print(f"\n{bcolors.FAIL}An event with this code number doesn't exist.{bcolors.ENDC}\n")
+
+            else:
+                print(f"\n{bcolors.FAIL}There are no events associated with your user.{bcolors.ENDC}\n")
 
         elif option == 4:
 
-            printCurrentEvents()
 
-            while True:
+            ableToModify = False
 
-                ableToDelete = False
-                repeatedEvent = False
-                validInput = True
+            for i in events:
+                if i.citizenName == generalFunctions.currentUserName:
+                    ableToModify = True
 
-                try:
-                    eventToDelete = input("Introduce the code number of the event you want to delete: ")
-                    eventToDelete = int(eventToDelete)
-                    for i in currentUserVehicles:
-                        for x in events:
-                            if i["numberPlate"] == x.numberPlate and x.code == eventToDelete:
-                                repeatedEvent = True
-                                if x.status == "open":
-                                    ableToDelete = True
-                                    eventIndex = events.index(x)
-                except ValueError:
-                    validInput = False
-                    print(f"\n{bcolors.FAIL}Invalid input.{bcolors.ENDC}\n")
+            if ableToModify == True:
 
-                if repeatedEvent == False and validInput == True:
-                    print(f"\n{bcolors.FAIL}An event with this code number doesn't exist.{bcolors.ENDC}\n")
-                elif repeatedEvent == True and ableToDelete == False:
-                    print(f"\n{bcolors.FAIL}Events can only be deleted if their status is equal to 'Open'.{bcolors.ENDC}\n")
+                printCurrentEvents()
 
-                if ableToDelete == True:
-                    del events[eventIndex]
-                    print(f"\n{bcolors.OKCYAN}The event was successfully deleted.{bcolors.ENDC}\n")
-                    break
+                while True:
+
+                    ableToDelete = False
+                    repeatedEvent = False
+                    validInput = True
+
+                    try:
+                        eventToDelete = input("Introduce the code number of the event you want to delete: ")
+                        eventToDelete = int(eventToDelete)
+                        for i in currentUserVehicles:
+                            for x in events:
+                                if i["numberPlate"] == x.numberPlate and x.code == eventToDelete:
+                                    repeatedEvent = True
+                                    if x.status == "open":
+                                        ableToDelete = True
+                                        eventIndex = events.index(x)
+                    except ValueError:
+                        validInput = False
+                        print(f"\n{bcolors.FAIL}Invalid input.{bcolors.ENDC}\n")
+
+                    if repeatedEvent == False and validInput == True:
+                        print(f"\n{bcolors.FAIL}An event with this code number doesn't exist.{bcolors.ENDC}\n")
+                    elif repeatedEvent == True and ableToDelete == False:
+                        print(f"\n{bcolors.FAIL}Events can only be deleted if their status is equal to 'Open'.{bcolors.ENDC}\n")
+
+                    if ableToDelete == True:
+                        del events[eventIndex]
+                        print(f"\n{bcolors.OKCYAN}The event was successfully deleted.{bcolors.ENDC}\n")
+                        break
+
+            else:
+                print(f"\n{bcolors.FAIL}There are no events associated with your user.{bcolors.ENDC}\n")
 
         elif option == 5:
             break
