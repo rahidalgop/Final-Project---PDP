@@ -2,7 +2,7 @@
 # User management
 # ===================================================================================================================
 
-# Predifined users
+# Predefined users
 
 administrator = {
     "id":"000000000",
@@ -59,7 +59,29 @@ citizen = {
     "birthdate":"10/06/1990"
 }
 
-users = [administrator, isabel, angelica, raul, citizen]
+officer = {
+    "id":"222222222",
+    "name":"Tom DeLonge",
+    "password":"222",
+    "profile":"police officer",
+    "gender":"male",
+    "age":47,
+    "residency":"Puntarenas, Esparza",
+    "birthdate":"10/06/1990"
+}
+
+judge = {
+    "id":"333333333",
+    "name":"Travis Barker",
+    "password":"333",
+    "profile":"judge",
+    "gender":"male",
+    "age":62,
+    "residency":"Heredia, Barva",
+    "birthdate":"10/06/1990"
+}
+
+users = [administrator, isabel, angelica, raul, citizen, officer, judge]
 
 # Current user logged in the system info
 
@@ -67,6 +89,7 @@ currentUser = 1
 currentUserName = ''
 currentUserProfile = ''
 currentUserID = ''
+currentUserVehicles = []
 
 # Residency management
 # ===================================================================================================================
@@ -99,7 +122,7 @@ provinces = [alajuela, heredia, sanJose, puntarenas]
 # ===================================================================================================================
 
 class Event:
-    def __init__(self, code, citizenName, location, numberPlate, status, dateTime, fine):
+    def __init__(self, code, citizenName, location, numberPlate, status, dateTime, fine, infringementNumber, officerName, registerNumber, judgeName):
         self.code = code
         self.citizenName = citizenName
         self.location = location
@@ -107,8 +130,27 @@ class Event:
         self.status = status
         self.dateTime = dateTime
         self.fine = fine
+        self.infringementNumber = infringementNumber
+        self.officerName = officerName
+        self.registerNumber = registerNumber
+        self.judgeName = judgeName
 
-event01 = Event(12345, "Mark Hoppus", "Alajuela, San Carlos", "AAA-111", "Open", "10/08/2024 18:45", 70000)
+    # def __str__(self) -> str:
+    #     return f"Code: {self.code}, Citizen full name: {self.citizenName}, Location: {self.location}, Involved vehicle: {self.numberPlate}, Status: {self.status.capitalize()}, Date-time: {self.dateTime}, Fine: {self.fine}."
+
+    def formatIfOpen(self):
+        return f"Code: {self.code}, Citizen full name: {self.citizenName}, Location: {self.location}, Involved vehicle: {self.numberPlate}, Status: {self.status.capitalize()}, Date-time: {self.dateTime}, Fine: {self.fine}."
+
+    def formatIfPendingApproval(self):
+        return f"Code: {self.code}, Citizen full name: {self.citizenName}, Location: {self.location}, Involved vehicle: {self.numberPlate}, Status: {self.status.capitalize()}, Date-time: {self.dateTime}, Fine: {self.fine}, Infringement number: {self.infringementNumber}, Police officer name: {self.officerName}."
+
+    def formatIfClosed(self):
+        return f"Code: {self.code}, Citizen full name: {self.citizenName}, Location: {self.location}, Involved vehicle: {self.numberPlate}, Status: {self.status.capitalize()}, Date-time: {self.dateTime}, Fine: {self.fine}, Infringement number: {self.infringementNumber}, Police officer name: {self.officerName}, Register number: {self.registerNumber}, Judge name: {self.judgeName}."
+
+    def formatToFile(self):
+        return f"{self.code}, {self.citizenName}, {self.location}, {self.numberPlate}, {self.status} {self.dateTime}, {self.fine}, {self.infringementNumber}, {self.officerName}, {self.registerNumber}, {self.judgeName}\n"
+
+event01 = Event(12345, "Mark Hoppus", "Alajuela, San Carlos", "AAA-111", "open", "10/08/2024 18:45", 32500, '', '', '', '')
 
 events = [event01]
 
@@ -134,15 +176,24 @@ vehicle02 = {
 }
 
 vehicle03 = {
-    "ownerID":"222222222",
+    "ownerID":"604840803",
     "numberPlate":"QWE-123",
-    "year":"2018",
-    "brand":"Honda",
-    "color":"red",
+    "year":"1980",
+    "brand":"BMW",
+    "color":"blue",
+    "type":"truck"
+}
+
+vehicle04 = {
+    "ownerID":"111111111",
+    "numberPlate":"CCC-333",
+    "year":"1997",
+    "brand":"Kia",
+    "color":"yellow",
     "type":"motorcycle"
 }
 
-vehicles = [vehicle01, vehicle02]
+vehicles = [vehicle01, vehicle02, vehicle03, vehicle04]
 
 vehicleBrands = ["Toyota", "Ford", "Volkswagen", "Nissan", "BMW", "Chevrolet", "Honda", "Hyundai", "Kia", "Other"]
 vehicleColors = ["white", "gray", "black", "blue", "silver", "red", "green", "yellow", "orange", "other"]
