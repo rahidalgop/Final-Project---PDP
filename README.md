@@ -11,7 +11,7 @@
 2. Please use VSCode instead of PyCharm since PyCharm doesn't recognize all libraries.
 3. In order to login as the administrator within the system, use the following credentials:
 
-ID: 000000000.<br>
-Password: 000.
+ID: 000000000<br>
+Password: 000
 
 
