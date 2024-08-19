@@ -7,6 +7,7 @@ from globalVariables import *
 
 # Main body
 # ========================================================================================
+#This function is used to display the vehicle collision menu
 
 if __name__ == "__main__":
 

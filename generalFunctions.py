@@ -9,7 +9,9 @@ from getpass import getpass
 
 # Functions
 # ===================================================================================================================
-
+''' IMPORTANT!
+The global variable indicate that they're defined outside of each of these functions
+(there maybe several) but thar they used within the functions that is relevant to them'''
 # Function that displays the login menu
 
 def loginMenu ():
@@ -32,6 +34,8 @@ def loginMenu ():
             break
 
 # Function that validates that user's input in the menu is valid
+'''This function makes sure that the data entered by the user is an integer within the 
+specified range (optionsQuantity)'''                       
 
 def validateOption(optionsQuantity):
     while True:
@@ -46,7 +50,8 @@ def validateOption(optionsQuantity):
             print(f"\n{bcolors.FAIL}Please enter a valid number.{bcolors.ENDC}\n")
 
 # Function that validates user login
-
+'''This method used to validate the user consistence in the system using the ID in a list of created data(for i in users),
+if it's the case it will ask for the associated password, otherwise it will ask for the ID again and send an error message'''
 def validateUser():
     global users, currentUser
     while True:
@@ -77,7 +82,8 @@ def validateUser():
             print(f"\n{bcolors.FAIL}Fail, ID wasn't identified.{bcolors.ENDC}\n")
 
 # Function that displays a menu based on user's profile
-
+'''This menu redirects the user to the correct menu based on the user's profile (taking into account that it's the administrator
+who defines the role of the user)'''
 def menuProfile():
     global currentUser, users
     for i in range(0, len(users)):
@@ -100,7 +106,8 @@ def closeSession():
     currentUser = False
 
 # Function that creates a variable for current user's name and role
-
+'''With this function we can get the name and role of the current user and update the current user information so that 
+it allows us to mobilie anywhere in the code'''
 def currentUserInfo(id):
     global currentUser, currentUserName, currentUserProfile, currentUserID
     for i in range(0, len(users)):

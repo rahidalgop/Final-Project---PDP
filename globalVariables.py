@@ -5,7 +5,12 @@ from datetime import datetime
 
 # User management
 # ===================================================================================================================
+''' IMPORTANT! 
+The data presented in this administration system are fictitious and only for testing purposes becasue is necesary to be 
+able to define the other users in the system
 
+In this part of the code will appear list with defined values but there're alse several empty lists that will store the data
+we insert.'''
 # Predefined users
 
 administrator = {
@@ -58,7 +63,7 @@ provinces = [alajuela, heredia, sanJose, puntarenas]
 
 # Event management
 # ===================================================================================================================
-
+''' Events simply return strings with the information of the event corresponding to the specified user(all details). '''
 class Event:
     def __init__(self, code, citizenName, location, numberPlate, status, dateTime, fine, penaltyFeeNumber, officerName, registerNumber, judgeName):
         self.code = code
@@ -95,7 +100,7 @@ closedEvents = []
 # Vehicle management
 # ===================================================================================================================
 
-
+''' This list contains all the vehicles in the system. '''
 vehicles = []
 
 vehicleBrands = ["Toyota", "Ford", "Volkswagen", "Nissan", "BMW", "Chevrolet", "Honda", "Hyundai", "Kia", "Other"]

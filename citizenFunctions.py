@@ -11,7 +11,7 @@ from getpass import getpass
 # ===================================================================================================================
 
 # Function that displays the menu for citizen profile
-
+'''In this menu, the citizen can manage his vehicles and events'''
 def menuCitizen():
 
     updateCurrentUserVehicles()
@@ -55,7 +55,7 @@ def crudVehicle():
         print("\n===================================================================================\n")
 
         option = generalFunctions.validateOption(5)
-
+        '''Option used to register a new vehicle'''
         if option == 1:
             while True:
                 validPlateNumber = False
@@ -174,6 +174,7 @@ def crudVehicle():
             vehicles.append(newVehicle)
             print(f"\n{bcolors.OKCYAN}New vehicle registered successfully.{bcolors.ENDC}\n")
 
+            '''Option to used to Prints the current list of vehicles'''
         elif option == 2:
 
             if len(vehicles) == 0:
@@ -187,7 +188,8 @@ def crudVehicle():
                     if i["ownerID"] == generalFunctions.currentUserID:
                         print(f"Number plate: {i['numberPlate']}, Production year: {i['year']}, Brand: {i['brand']}, Color: {i['color']}, Type: {i['type']}.")
                 print("-----------------------------------------------------------------------------------")
-
+           
+            ''' Option to used to modify a vehicle with the current user'''
         elif option == 3:
 
             ableToModify = False
@@ -360,6 +362,7 @@ def crudVehicle():
                 print(f"\n{bcolors.FAIL}There are no vehicles associated with your user.{bcolors.ENDC}\n")
 
 
+            ''' Option to delete vehicle '''
         elif option == 4:
 
             ableToDelete = False
@@ -392,12 +395,12 @@ def crudVehicle():
             else:
                 print(f"\n{bcolors.FAIL}There are no vehicles associated with your user.{bcolors.ENDC}\n")
 
-            
+            ''' Option to return to main menu '''
         elif option == 5:
             break
 
 # Function that executes a CRUD for events / incidents
-
+''' This function is used to create, display, update and delete events '''
 def crudEvent():
 
     global events, vehicles, currentUserVehicles
@@ -610,24 +613,31 @@ def crudEvent():
                             break
 
                         elif modifyOption == 2:
-                            printCurrentVehicles()
+                            updateCurrentUserVehicles()
 
-                            while True:
-                                validPlateNumber = False
-                                modifyEventNumberPlate = input("Introduce the number plate of the vehicle involved in the event / incident: ")
+                            if len(currentUserVehicles) >= 1:
 
-                                for i in vehicles:
-                                    if modifyEventNumberPlate == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID and vehicleInEvent(modifyEventNumberPlate) == False:
-                                        validPlateNumber = True
-                                        vehicleIndex = vehicles.index(i)
+                                printCurrentVehicles()
+
+                                while True:
+                                    validPlateNumber = False
+                                    modifyEventNumberPlate = input("Introduce the number plate of the vehicle involved in the event / incident: ")
+
+                                    for i in vehicles:
+                                        if (modifyEventNumberPlate == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID and vehicleInEvent(modifyEventNumberPlate) == False) or (modifyEventNumberPlate == i["numberPlate"] and i["ownerID"] == generalFunctions.currentUserID and events[eventIndex].numberPlate == modifyEventNumberPlate):
+                                            validPlateNumber = True
+                                            vehicleIndex = vehicles.index(i)
+                                            break
+                                    else:
+                                        print(f"\n{bcolors.FAIL}A vehicle with this number plate doesn't exist or is already vinculated to an event.{bcolors.ENDC}\n")
+
+                                    if validPlateNumber == True:
+                                        events[eventIndex].numberPlate = modifyEventNumberPlate
+                                        print(f"\n{bcolors.OKCYAN}Vehicle involved in the event updated succesfully.{bcolors.ENDC}\n")
                                         break
-                                else:
-                                    print(f"\n{bcolors.FAIL}A vehicle with this number plate doesn't exist or is already vinculated to an event.{bcolors.ENDC}\n")
+                            else:
+                                print(f"\n{bcolors.FAIL}There are no vehicles associated with your user.{bcolors.ENDC}\n")
 
-                                if validPlateNumber == True:
-                                    events[eventIndex].numberPlate = modifyEventNumberPlate
-                                    print(f"\n{bcolors.OKCYAN}Vehicle involved in the event updated succesfully.{bcolors.ENDC}\n")
-                                    break
                             break
 
                     if validInput == True and validEventCode == False:

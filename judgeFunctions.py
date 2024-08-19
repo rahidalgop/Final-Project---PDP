@@ -12,7 +12,7 @@ from getpass import getpass
 # ===================================================================================================================
 
 # Function that displays the menu for judge profile
-
+'''In this menu, the judge can approve or reject events'''
 def menuJudge():
 
     while True:
@@ -35,7 +35,7 @@ def menuJudge():
             break
 
 
-# Function that displays the list of open events
+# Function that displays the list of open events and shows the status
 
 def displayPendingEvents():
 
@@ -51,66 +51,78 @@ def displayPendingEvents():
     print("-----------------------------------------------------------------------------------")
 
 # Function that allows the user to include a penalty fee number
-
+'''Shows the list of pending events and allows the user to include an incident registration number'''
 def includeIncidentRegistrationNumber():
 
     global events, users, vehicles
 
-    print(f"\nThis is the current list of pending approval events.\n")
+    anyClosedEvent = False
 
     for i in events:
         if i.status == "pending approval":
-            print(f"{bcolors.OKCYAN}{i.formatIfPendingApproval()}{bcolors.ENDC}")
-    print("")
+            anyClosedEvent = True
 
-    while True:
+    if anyClosedEvent == True:
 
-        ableToAddIncidentRegNumber = False
-        validInput = True
+        print(f"\nThis is the current list of pending approval events.\n")
 
-        try:
-            eventToAddincidentRegNumber = input("Introduce the code number of the event you want to include an incident registration number: ")
-            eventToAddincidentRegNumber = int(eventToAddincidentRegNumber)
+        for i in events:
+            if i.status == "pending approval":
+                print(f"{bcolors.OKCYAN}{i.formatIfPendingApproval()}{bcolors.ENDC}")
+        print("")
 
-            for x in events:
-                if x.code == eventToAddincidentRegNumber and x.status == "pending approval":
-                    ableToAddIncidentRegNumber = True
-                    eventIndex = events.index(x)
+        while True:
 
-        except ValueError:
-            validInput = False
-            print(f"\n{bcolors.FAIL}Invalid input.{bcolors.ENDC}\n")
+            ableToAddIncidentRegNumber = False
+            validInput = True
 
-        if ableToAddIncidentRegNumber == False and validInput == True:
-            print(f"\n{bcolors.FAIL}A pending approval event with this code number doesn't exist.{bcolors.ENDC}\n")
-        elif ableToAddIncidentRegNumber == True and validInput == True:
+            try:
+                eventToAddincidentRegNumber = input("Introduce the code number of the event you want to include an incident registration number: ")
+                eventToAddincidentRegNumber = int(eventToAddincidentRegNumber)
 
-            while True:
-                repeatedNumber = True
-                incidentRegNumber = random.randint(100, 999)
+                for x in events:
+                    if x.code == eventToAddincidentRegNumber and x.status == "pending approval":
+                        ableToAddIncidentRegNumber = True
+                        eventIndex = events.index(x)
 
-                for i in events:
-                    if i.registerNumber == incidentRegNumber:
-                        repeatedNumber = True
-                else:
-                    repeatedNumber = False
+            except ValueError:
+                validInput = False
+                print(f"\n{bcolors.FAIL}Invalid input.{bcolors.ENDC}\n")
 
-                if repeatedNumber == False:
-                    break
+            if ableToAddIncidentRegNumber == False and validInput == True:
+                print(f"\n{bcolors.FAIL}A pending approval event with this code number doesn't exist.{bcolors.ENDC}\n")
+            elif ableToAddIncidentRegNumber == True and validInput == True:
 
-            events[eventIndex].registerNumber = incidentRegNumber
-            events[eventIndex].judgeName = generalFunctions.currentUserName
-            events[eventIndex].status = "closed"
-            events[eventIndex].dateTime = datetime.strptime(datetime.now().isoformat(' ', 'seconds'), "%Y-%m-%d %H:%M:%S")
-        
-            print(f"\n{bcolors.OKCYAN}The incident registration number {incidentRegNumber} has been added to the event identified with the code {events[eventIndex].code}.\nAdditionally, event status has been set to 'Closed' and date-time has been updated.{bcolors.ENDC}\n")
+                while True:
+                    repeatedNumber = True
+                    incidentRegNumber = random.randint(100, 999)
 
-            writeClosedEventsOnFile()
+                    for i in events:
+                        if i.registerNumber == incidentRegNumber:
+                            repeatedNumber = True
+                    else:
+                        repeatedNumber = False
 
-            break
+                    if repeatedNumber == False:
+                        break
+
+                events[eventIndex].registerNumber = incidentRegNumber
+                events[eventIndex].judgeName = generalFunctions.currentUserName
+                events[eventIndex].status = "closed"
+                events[eventIndex].dateTime = datetime.strptime(datetime.now().isoformat(' ', 'seconds'), "%Y-%m-%d %H:%M:%S")
+            
+                print(f"\n{bcolors.OKCYAN}The incident registration number {incidentRegNumber} has been added to the event identified with the code {events[eventIndex].code}.\nAdditionally, event status has been set to 'Closed' and date-time has been updated.{bcolors.ENDC}\n")
+
+                writeClosedEventsOnFile()
+
+                break
+
+    else:
+        print(f"\n{bcolors.FAIL}There are currently no pending approval events.{bcolors.ENDC}\n")
+
 
 # Function that creates / cleans a txt file and writes all closed events on it
-
+'''Writes all closed events on a txt file with the location of the program'''
 def writeClosedEventsOnFile():
 
     global events, users, closedEvents

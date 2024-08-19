@@ -10,7 +10,7 @@ from getpass import getpass
 # Functions
 # ===================================================================================================================
 
-# Function that displays the menu for admin profile
+# Function that displays the menu for admin profile (CRUD)
 
 def menuAdmin():
     global currentUser, users, currentUserProfile, currentUserName
@@ -26,7 +26,7 @@ def menuAdmin():
         print("\n===================================================================================\n")
 
         option = generalFunctions.validateOption(5)
-
+#This part of the code calls the function created for this crud
         if option == 1:
             createNewUser()
         elif option == 2:
@@ -39,7 +39,7 @@ def menuAdmin():
             generalFunctions.closeSession()
             break
 
-# Function that prints the current list of provinces
+# Function that prints the current list of provinces in the system
 
 def printCurrentProvinces():
 
@@ -50,7 +50,7 @@ def printCurrentProvinces():
         print(f"{bcolors.OKCYAN}{provinces[i]['name']}{bcolors.ENDC}")
     print("") 
 
-# Function that prints the current list of cantons
+# Function that prints the current list of cantons in the system
 
 def printCurrentCantons():
 
@@ -63,6 +63,10 @@ def printCurrentCantons():
     print("")
 
 # Function that creates a new user
+''' This is the most essential part of the program, since here a 9 digit numerical user is 
+created (it cannot be the same as the admin), with it's respective password. who can choose cantons and provinces(stored) 
+and is asked for gender and age.Some data come with a specific requirement that if typed differently, an error will appear
+until it is correct. And at the end the user is stored in the system list. '''
 
 def createNewUser():
     global users
@@ -195,7 +199,7 @@ def createNewUser():
     print(f"\n{bcolors.OKCYAN}New user created successfully.{bcolors.ENDC}\n")
 
 # Function that executes a CRUD for provinces
-
+'''This function allows the administrator to create, display, update and delete provinces'''
 def crudProvince():
     global provinces
     while True:
@@ -210,7 +214,8 @@ def crudProvince():
         print("\n===================================================================================\n")
         
         option = generalFunctions.validateOption(5)
-
+        ''' Following the menu. Request the name of the new princes(verify that it doesn't exist in the system) 
+        and add it to the list of provinces '''
         if option == 1:
             while True:
                 repeatedProvince = False
@@ -228,7 +233,8 @@ def crudProvince():
             newProvince["cantons"] = []
             provinces.append(newProvince)
             print(f"\n{bcolors.OKCYAN}The province was added correctly.\n{bcolors.ENDC}")
-        
+
+            ''' Display the list of provinces '''
         elif option == 2:
             print(f"\nThis is the current list of provinces.\n")
             print("-----------------------------------------------------------------------------------")
@@ -237,7 +243,7 @@ def crudProvince():
             for i in range(0,len(provinces)):
                 print(provinces[i]["name"])
             print("-----------------------------------------------------------------------------------")
-        
+            ''' Update province name (verify that the province exists) '''
         elif option == 3:
             printCurrentProvinces()
 
@@ -263,7 +269,7 @@ def crudProvince():
                     provinces[provinceIndex]["name"] = newName
                     print(f"\n{bcolors.OKCYAN}Province name was updated to {newName}.{bcolors.ENDC}\n")
                     break
-
+            ''' Delete province  '''
         elif option == 4:
             printCurrentProvinces()
             while True:
@@ -303,7 +309,7 @@ def crudCanton():
         print("\n===================================================================================\n")
         
         option = generalFunctions.validateOption(5)
-
+        ''' Following the menu. Request the name of the new canton and add it to the list of cantons '''
         if option == 1:
             repeatedCanton = False
             printCurrentProvinces()
@@ -334,7 +340,8 @@ def crudCanton():
                     provinces[provinceIndex]["cantons"].append(name)
                     print(f"\n{bcolors.OKCYAN}The new canton was added correctly.{bcolors.ENDC}\n")
                     break
-    
+
+            ''' Display cantons list '''
         elif option == 2:
             print("\nThis is the current list of cantons.\n")
             print("-----------------------------------------------------------------------------------")
@@ -344,7 +351,8 @@ def crudCanton():
                 for x in range(0,len(provinces[i]["cantons"])):
                     print(provinces[i]["cantons"][x])
                 print("-----------------------------------------------------------------------------------")
-    
+                
+            ''' Update canton (verify if canton exists) '''
         elif option == 3:
             printCurrentCantons()
     
@@ -375,7 +383,7 @@ def crudCanton():
                     provinces[provinceIndex]["cantons"][cantonIndex] = newName
                     print(f"\n{bcolors.OKCYAN}The name of the canton has been updated.\n{bcolors.ENDC}")
                     break
-
+            ''' Delete canton '''
         elif option == 4:
             printCurrentCantons()
 
@@ -394,13 +402,14 @@ def crudCanton():
                 else:
                     print(f"\n{bcolors.FAIL}A canton with this name doesn't exist.{bcolors.ENDC}\n")
 
+            ''' Return to main menu '''
         elif option == 5:
             break
 
         else:
             print(f"\n{bcolors.FAIL}Invalid option. Please choose a number between 1 and 5. \n {bcolors.ENDC}")
 
-# Function that displays reports menu
+# Function that displays reports menu 
 
 def reportsMenu():
     while True:
@@ -446,7 +455,7 @@ def reportsMenu():
             break
 
 # Function that generates the report number one (cantons in alphabetical order)
-
+''' Using the sorted function returns the provinces (scrolls through the list of provinces) in alphabetical order '''
 def generateReportOne():
 
     global provinces
@@ -467,7 +476,7 @@ def generateReportOne():
     print("-----------------------------------------------------------------------------------")
 
 # Function that generates the report number two (users by ascending age)
-
+''' Using the sorted anf key=lamba function returns a list created where the users are sorted in ascending order by their age'''
 def generateReportTwo():
 
     global users
@@ -482,7 +491,7 @@ def generateReportTwo():
     print("-----------------------------------------------------------------------------------")
 
 # Function that generates the report number three (quantity of women and men)
-
+''' Starts two variables at cero and goes through the list of users, which depending on the gender increment the value'''
 def generateReportThree():
 
     global users
@@ -572,7 +581,7 @@ def generateReportFive():
     print("-----------------------------------------------------------------------------------")
 
 # Function that generates the report number six (vehicles by type)
-
+''' Prints the vehicles by type in the list created'''
 def generateReportSix():
 
     global vehicles
@@ -611,7 +620,7 @@ def generateReportSix():
 
 
 # Function that generates the report number seven (pending approval events with a fine higher than 45 000 colones)
-
+''' Prints the pending approval events with a fine higher than 45 000 colones in the list created'''
 def generateReportSeven():
     
     global events
@@ -627,7 +636,7 @@ def generateReportSeven():
     print("-----------------------------------------------------------------------------------")
 
 # Function that generates the report number eight (closed events)
-
+''' Prints the closed events in the list created within a txt file'''
 def generateReportEight():
     
     global events, closedEvents
@@ -657,7 +666,7 @@ def generateReportEight():
     print("-----------------------------------------------------------------------------------")
 
 # Function that generates the report number nine (open events by hour)
-
+''' Prints the open events by hour less than the limit time in the list created'''
 def generateReportNine():
     
     global events
@@ -686,7 +695,8 @@ def generateReportNine():
     print("-----------------------------------------------------------------------------------")
 
 # Function that generates the report number ten (province with the highest and lowest number of events)
-
+''' Prints the province with the highest and lowest number of events in the list created, used split() function to separate 
+the name and the number by province'''
 def generateReportTen():
     
     global events, provinces
